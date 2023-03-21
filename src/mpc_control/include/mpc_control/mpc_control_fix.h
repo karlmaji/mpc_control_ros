@@ -10,7 +10,7 @@ namespace MPC_CONTROL_FIX
 {
 class MPC_Control
 {
-    private:
+    protected:
         //-----------通过yaml传入的参数-------------//
         Eigen::Matrix<double,3,1> _xMax;
         Eigen::Matrix<double,3,1> _xMin;

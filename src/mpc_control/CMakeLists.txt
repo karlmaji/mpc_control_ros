@@ -145,6 +145,14 @@ add_library(pid_control_lib
 include/pid_control/pid_control.h 
 include/pid_control/pid_control.cpp
 )
+
+# ## Declare a C++ library
+add_library(mpc_control_node_class
+include/mpc_control/mpc_control_node_class.h 
+include/mpc_control/mpc_control_node_class.cpp
+)
+
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -168,6 +176,10 @@ add_executable(mpc_control_node_nokov src/mpc_control_node_nokov.cpp)
 add_executable(bag_to_path src/bag_to_path.cpp)
 
 add_executable(mpc_test src/mpc_test.cpp)
+
+
+add_executable(mpc include/mpc_control/mpc_control_node_class.cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -194,6 +206,11 @@ target_link_libraries(mpc_control_node_nokov  mpc_control_fix_lib  ${catkin_LIBR
 target_link_libraries(bag_to_path  ${catkin_LIBRARIES})
 target_link_libraries(mpc_test  mpc_control_lib  ${catkin_LIBRARIES})
 target_link_libraries(path_publisher_nokov  ${catkin_LIBRARIES})
+
+target_link_libraries(mpc_control_node_class mpc_control_fix_lib ${catkin_LIBRARIES})
+
+
+target_link_libraries(mpc mpc_control_node_class ${catkin_LIBRARIES})
 #############
 ## Install ##
 #############

@@ -1,7 +1,11 @@
 #include "mpc_control_fix.h"
 
 using namespace MPC_CONTROL_FIX;
+/*
 
+
+
+*/
 bool MPC_Control::getParamYamlFromRos(const std::string &name_node)
 {
 

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yl-01/mh_code/ros1/src/dynaplaning/include/car.h
+iostream
+-
+transform.h
+/home/yl-01/mh_code/ros1/src/dynaplaning/include/transform.h
+
+/home/yl-01/mh_code/ros1/src/dynaplaning/include/transform.h
+iostream
+-
+math.h
+/home/yl-01/mh_code/ros1/src/dynaplaning/include/math.h
+
+/home/yl-01/mh_code/ros1/src/dynaplaning/src/car.cpp
+car.h
+/home/yl-01/mh_code/ros1/src/dynaplaning/src/car.h
+

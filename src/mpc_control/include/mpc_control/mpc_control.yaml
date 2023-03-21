@@ -17,3 +17,11 @@ Q_weight_decay: 1.0
 mpc_window: 20
 control_window: 5
 delta_T: 0.05 #s
+
+path_ref_topic: path_ref
+current_pose_topic: nokov
+current_odom_topic: odom
+cmd_vel_topic: cmd_vel
+path_real_topic: path_real
+path_to_follow_topic: path_to_follow
+path_pred_topic: path_pred
