@@ -12,7 +12,8 @@
                 "/opt/ros/noetic/include",
                 "${workspaceFolder}/src/mpc_control/include",
                 "/usr/local/include/osqp",
-                "/usr/include/eigen3"
+                "/usr/include/eigen3",
+                "${workspaceFolder}/src/dynaplaning/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

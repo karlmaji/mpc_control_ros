@@ -71,4 +71,5 @@ class DynaPlaning
      float qp_cost_ref;
      float qp_cost_mid;
      float qp_cost_smooth[3];
+     float scale;
 };

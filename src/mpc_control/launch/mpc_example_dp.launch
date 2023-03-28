@@ -27,7 +27,7 @@
 	</node>
 	
 	<node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix" output="screen">
-    <rosparam command="load" file ="$(find mpc_control)/include/mpc_control/mpc_control.yaml"/>
+    <rosparam command="load" file ="$(find mpc_control)/include/mpc_control/mpc_control_stage.yaml"/>
 	<remap from = "path_ref" to = "global_path"/>
 	
 	</node>

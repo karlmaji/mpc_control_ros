@@ -24,15 +24,15 @@ int GetLocalRef(int &start_index,float car_x,float car_y,float ref_length,std::v
   float distances=0;
   float min_distance=std::sqrt((car_x-path[start_index].x_r)*(car_x-path[start_index].x_r)
                               +(car_y-path[start_index].y_r)*(car_y-path[start_index].y_r));
-  std::cout<<"x:"<<car_x<<std::endl;
-  std::cout<<"y:"<<car_y<<std::endl;
-  std::cout<<"min_distance:"<<min_distance<<std::endl;
+  //std::cout<<"x:"<<car_x<<std::endl;
+  //std::cout<<"y:"<<car_y<<std::endl;
+  //std::cout<<"min_distance:"<<min_distance<<std::endl;
   int times=0;
   for(int i=start_index+1;i<path.size();i++)
   {
     distances = std::sqrt((car_x-path[i].x_r)*(car_x-path[i].x_r)
                         +(car_y-path[i].y_r)*(car_y-path[i].y_r));
-    std::cout<<"distance:"<<distances<<std::endl;
+    //std::cout<<"distance:"<<distances<<std::endl;
     if(distances<=min_distance)
     {
         min_distance=distances;
@@ -75,7 +75,7 @@ int GetLocalRef(int &start_index,float car_x,float car_y,float ref_length,std::v
        break;
     }
   }
-  std::cout<<"start "<<start<<" end "<<end<<std::endl;
+  //std::cout<<"start "<<start<<" end "<<end<<std::endl;
   for(int i=0;i<=end-start;i++)
   {
     p[i]=path[i+start];
@@ -102,8 +102,14 @@ void getref(std::vector<float> &x,std::vector<float> &y,std::vector<float> &sita
    path[i].y_r=y[i];
    path[i].heading_r=sita[i];
    ds=std::sqrt((x[i]-x[i-1])*(x[i]-x[i-1])+(y[i]-y[i-1])*(y[i]-y[i-1])) +1e-4;
+
+   float dsita = sita[i] - sita[i-1];
+   if(abs(dsita)> abs(dsita + M_2_PI)) {dsita += M_2_PI;}
+   else if(abs(dsita)>abs(dsita- M_2_PI))   {dsita -=M_2_PI;}
+
+
    path[i].s_r=path[i-1].s_r+ds;
-   path[i].k_r=abs((sita[i]-sita[i-1])/ds);
+   path[i].k_r=abs(dsita/ds);
    path[i].k_rd=(path[i].k_r-path[i-1].k_r)/(path[i].s_r-path[i-1].s_r+1e-3);
   }
   path[0].k_rd=(path[1].k_r-path[0].k_r)/(path[1].s_r-path[0].s_r+1e-4);
@@ -131,8 +137,11 @@ void car_pose_ck(const nav_msgs::Odometry::ConstPtr& pt)
     car_p.car_length = 0.6;
     car_p.car_width = 0.25;
     car_p.car_velocity = pt->twist.twist.linear.x;
+    float dsita = tf::getYaw(pt->pose.pose.orientation) - tf::getYaw(last_time_car_pose.pose.pose.orientation);
+    if(abs(dsita)> abs(dsita + M_2_PI)) {dsita += M_2_PI;}
+    else if(abs(dsita)>abs(dsita- M_2_PI))   {dsita -=M_2_PI;}
     //car_p.car_velocity
-    car_p.car_k = (tf::getYaw(pt->pose.pose.orientation) - tf::getYaw(last_time_car_pose.pose.pose.orientation) )/
+    car_p.car_k = abs(dsita)/
                   ( std::sqrt( pow((pt->pose.pose.position.x - last_time_car_pose.pose.pose.position.x),2)
                              + pow((pt->pose.pose.position.y - last_time_car_pose.pose.pose.position.y),2)    ) +1e-3  );
     
@@ -155,20 +164,28 @@ int main(int argc, char **argv)
     float w_smooth[3]={100000,5000,2000};
     float q_w_smooth[3]={1000,500,200};
     float dc=M_PI/360;
-    Obs obs_p[1];
+    Obs obs_p[2];
 
     Reference referenceline[1000];
     for(int i=0;i<1;i++)
     {
         obs_p[i].obs_acc=0;
-        obs_p[i].obs_center_x=2.25;
-        obs_p[i].obs_center_y=4.97;
+        obs_p[i].obs_center_x=2.58;
+        obs_p[i].obs_center_y=5.17;
         obs_p[i].obs_hesding=0;
         obs_p[i].obs_k=0;
-        obs_p[i].obs_length=0.5;
+        obs_p[i].obs_length=0.05;
         obs_p[i].obs_velocity=0;
-        obs_p[i].obs_width=0.5;
+        obs_p[i].obs_width=0.05;
     }
+        obs_p[1].obs_acc=0;
+        obs_p[1].obs_center_x=2.54;
+        obs_p[1].obs_center_y=2.92;
+        obs_p[1].obs_hesding=0;
+        obs_p[1].obs_k=0;
+        obs_p[1].obs_length=0.1;
+        obs_p[1].obs_velocity=0;
+        obs_p[1].obs_width=0.1;
 
 
 
@@ -193,31 +210,42 @@ int main(int argc, char **argv)
         obs_marker.id = 0;
         obs_marker.type = visualization_msgs::Marker::CUBE;
         obs_marker.action = visualization_msgs::Marker::ADD;
-        obs_marker.pose.position.x = 2.25;
-        obs_marker.pose.position.y = 4.97;
-        obs_marker.scale.x = 0.5;
-        obs_marker.scale.y = 0.5;
-        obs_marker.scale.z = 1;
+        obs_marker.pose.position.x = 2.58;
+        obs_marker.pose.position.y = 5.17;
+        obs_marker.scale.x = 0.05;
+        obs_marker.scale.y = 0.05;
+        obs_marker.scale.z = 0.1;
         obs_marker.color.r = 0.0f;
         obs_marker.color.g = 1.0f;
         obs_marker.color.b = 0.0f;
         obs_marker.color.a = 1.0;
         obs_marker.lifetime = ros::Duration();
         obs_pub.publish(obs_marker);
-
+        obs_marker.id = 1;
+        obs_marker.pose.position.x = 2.54;
+        obs_marker.pose.position.y = 2.92;
+        obs_marker.scale.x = 0.1;
+        obs_marker.scale.y = 0.1;
+        obs_marker.scale.z = 0.1;
+        obs_marker.color.r = 0.0f;
+        obs_marker.color.g = 1.0f;
+        obs_marker.color.b = 0.0f;
+        obs_marker.color.a = 1.0;
+        obs_marker.lifetime = ros::Duration();
+        obs_pub.publish(obs_marker);
         if(global_path_reference.size()>0)
         {
-            std::cout << "path size"<<global_path_reference.size()<<std::endl;
+            //std::cout << "path size"<<global_path_reference.size()<<std::endl;
             int length_point = GetLocalRef(start_index,car_p.car_center_x,car_p.car_center_y,3,global_path_reference,referenceline); 
 
             HostCar carp(car_p,referenceline,length_point);
-            Obstacle obst(obs_p,0,referenceline,length_point);
-            std::cout << "length_point"<<length_point <<std::endl;
-            DynaPlaning DP(obst,carp,0,0.1,0.1,100,50,w_smooth,50,10,q_w_smooth,1);
+            Obstacle obst(obs_p,2,referenceline,length_point);
+            //std::cout << "length_point"<<length_point <<std::endl;
+            DynaPlaning DP(obst,carp,0,0.1,0.1,100,500,w_smooth,50,5000,q_w_smooth,1);
             DP.traj=traj;
             DP.DynamicProgramming();
 
-            std::cout<<"traj_num"<<DP.traj_num<<std::endl;
+            //std::cout<<"traj_num"<<DP.traj_num<<std::endl;
             nav_msgs::Path path;
             path.header.frame_id = "map";
             auto time_now = ros::Time::now();
