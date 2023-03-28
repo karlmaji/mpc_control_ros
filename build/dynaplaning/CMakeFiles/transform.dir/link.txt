@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O2 -g -DNDEBUG  -shared -Wl,-soname,libtransform.so -o /home/karl/ros1/devel/lib/libtransform.so CMakeFiles/transform.dir/src/transform.cpp.o 

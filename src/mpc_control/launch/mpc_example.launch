@@ -1,0 +1,38 @@
+<launch>
+
+        <!--  ************** Stage Simulator ***************  -->
+	<node pkg="stage_ros" type="stageros" name="stageros" args="$(find mpc_control)/stage/maze_carlike.world">
+		<remap from="base_scan" to="scan"/>
+  	</node>
+  	
+	<!--  ****** Maps *****  -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find mpc_control)/maps/maze.yaml" output="screen">
+                <param name="frame_id" value="map"/>
+	</node>
+
+	<node pkg="amcl" type="amcl" name="amcl" output="screen">
+		<rosparam file="$(find mpc_control)/cfg/amcl_params.yaml" command="load" />
+
+	        <param name="initial_pose_x"            value="2"/>
+		<param name="initial_pose_y"            value="2"/>
+		<param name="initial_pose_a"            value="0"/>
+	</node>
+
+	<!--  **************** Visualisation ****************  -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mpc_control)/cfg/rviz_navigation.rviz" />
+
+
+	<node name="odom_to_path" pkg="mpc_control" type="odom_to_path">
+	<param name="bag_file" value = "$(find mpc_control)/src/test1.bag"/>
+	</node>
+	
+	<node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix">
+    <rosparam command="load" file ="$(find mpc_control)/include/mpc_control/mpc_control.yaml"/>
+	</node>
+	<node name="dyanamic_planning_node" pkg="dynaplaning" type="dyanamic_planning_node" output="screen">
+	</node>
+
+	<!-- 
+	<node name="pid_control" pkg="mpc_control" type="pid_control_node" output="screen"/>
+	-->
+</launch>

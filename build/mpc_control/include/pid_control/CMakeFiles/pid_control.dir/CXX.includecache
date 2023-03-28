@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/karl/ros1/src/mpc_control/include/pid_control/pid_control.cpp
+pid_control.h
+/home/karl/ros1/src/mpc_control/include/pid_control/pid_control.h
+tf/tf.h
+/home/karl/ros1/src/mpc_control/include/pid_control/tf/tf.h
+eigen3/Eigen/Dense
+/home/karl/ros1/src/mpc_control/include/pid_control/eigen3/Eigen/Dense
+
+/home/karl/ros1/src/mpc_control/include/pid_control/pid_control.h
+geometry_msgs/Twist.h
+/home/karl/ros1/src/mpc_control/include/pid_control/geometry_msgs/Twist.h
+geometry_msgs/Pose.h
+/home/karl/ros1/src/mpc_control/include/pid_control/geometry_msgs/Pose.h
+

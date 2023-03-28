@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O2 -g -DNDEBUG  -shared -Wl,-soname,libSensor.so -o /home/karl/ros1/devel/lib/libSensor.so CMakeFiles/Sensor.dir/src/Sensor.cpp.o  -Wl,-rpath,/home/karl/ros1/devel/lib /home/karl/ros1/devel/lib/libtransform.so 

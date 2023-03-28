@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O2 -g -DNDEBUG  -shared -Wl,-soname,libmpc_control.so -o /home/karl/ros1/devel/lib/libmpc_control.so CMakeFiles/mpc_control.dir/src/mpc_control.cpp.o 

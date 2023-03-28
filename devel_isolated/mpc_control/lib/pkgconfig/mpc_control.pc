@@ -1,0 +1,8 @@
+prefix=/home/karl/ros1/devel_isolated/mpc_control
+
+Name: mpc_control
+Description: Description of mpc_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

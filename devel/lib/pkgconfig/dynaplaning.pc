@@ -1,0 +1,8 @@
+prefix=/home/karl/ros1/devel
+
+Name: dynaplaning
+Description: Description of dynaplaning
+Version: 0.0.0
+Cflags: -I/home/karl/ros1/src/dynaplaning/include
+Libs: -L${prefix}/lib 
+Requires: 

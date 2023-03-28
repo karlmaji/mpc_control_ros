@@ -1,0 +1,2 @@
+dynaplaning:mpc_control
+-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_DEVEL_PREFIX=/home/karl/ros1/devel -DCMAKE_INSTALL_PREFIX=/home/karl/ros1/install -G Unix Makefiles

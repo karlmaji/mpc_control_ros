@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${default}",
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "/opt/ros/noetic/include/**",
+                "/home/karl/ros1/src/mpc_control/include/**",
+                "/usr/include/**",
+                "/opt/ros/noetic/include",
+                "${workspaceFolder}/src/mpc_control/include",
+                "/usr/local/include/osqp",
+                "/usr/include/eigen3"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}
