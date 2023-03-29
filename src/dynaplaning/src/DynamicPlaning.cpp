@@ -146,133 +146,156 @@ void DynaPlaning::DynamicProgramming()
     this->dp_obs.CarteToFre();//障碍物坐标转换
     Trajectory start_point=this->GetStartPlaningPoint();//取得规划起点
     Frenet origin=this->CarToFre(start_point);  //规划起点坐标转换
-    //std::cout<<origin.s<<' '<<origin.l<<' '<<origin.ld<<' '<<origin.ldd<<std::endl;
+    // std::cout<<origin.s<<' '<<origin.l<<' '<<origin.ld<<' '<<origin.ldd<<std::endl;
+    // std::cout<<(this->dp_car.referenceline+this->dp_car.Point_num-1)->s_r<<std::endl;
     plan_s_local=(this->dp_car.referenceline+this->dp_car.Point_num-1)->s_r-origin.s;
-    if(plan_s_local>this->plan_s)
+    if(plan_s_local<sample_s)
     {
-      plan_s_local=this->plan_s;
+     for(int i=0;i<61;i++)
+     {
+      *(this->traj+i)=start_point;
+     }
+     this->traj_num=61;
     }
     else
     {
-      plan_s_local=int(plan_s_local);
-    }
-    Frenet*  valid_obs=new Frenet [this->dp_obs.obs_num];//有效障碍物存储
-    int valid_num=0;  //用于记录有效障碍物个数
-    int best_index[int(plan_s_local/sample_s)];//
-    int ret;
-    double para[6];//
-    int s_num=int(plan_s_local/sample_s);
-    int l_num=int((road_lu-road_ld)/sample_l-1);
-    Sample dp_point[s_num][l_num];//散点数组
-    Frenet* all_obs=this->dp_obs.obs_frenet;//
-    Obs* valid_obsf=new Obs [this->dp_obs.obs_num];//有效障碍物完整信息存储
-    for(int i=0;i<this->dp_obs.obs_num;i++)//取出有效障碍物
-    {
-      if((all_obs+i)->l<(road_lu*1.5)&&(all_obs+i)->l>(road_ld*1.5)&&((all_obs+i)->s-origin.s)<plan_s_local)
+      if(plan_s_local>this->plan_s)
       {
-        if(((all_obs+i)->s-origin.s)>0&&(all_obs+i)->ld==0&&(all_obs+i)->sd==0)
+        plan_s_local=this->plan_s;
+      }
+      else
+      {
+        plan_s_local=plan_s_local;
+      }
+      Frenet*  valid_obs=new Frenet [this->dp_obs.obs_num];//有效障碍物存储
+      int valid_num=0;  //用于记录有效障碍物个数
+      int best_index[int(plan_s_local/sample_s)];//
+      int ret;
+      double para[6];//
+      int s_num=int(plan_s_local/sample_s);
+      int l_num=int((road_lu-road_ld)/sample_l-1);
+      Sample dp_point[s_num][l_num];//散点数组
+      Frenet* all_obs=this->dp_obs.obs_frenet;//
+      Obs* valid_obsf=new Obs [this->dp_obs.obs_num];//有效障碍物完整信息存储
+      for(int i=0;i<this->dp_obs.obs_num;i++)//取出有效障碍物
+      {
+        if((all_obs+i)->l<(road_lu*1.5)&&(all_obs+i)->l>(road_ld*1.5)&&((all_obs+i)->s-origin.s)<plan_s_local)
         {
-          *(valid_obs+valid_num)=*(all_obs+i);
-          *(valid_obsf+valid_num)=*(dp_obs.obs+i);
-          valid_num++;
+          if(((all_obs+i)->s-origin.s)>0&&(all_obs+i)->ld==0&&(all_obs+i)->sd==0)
+          {
+            *(valid_obs+valid_num)=*(all_obs+i);
+            *(valid_obsf+valid_num)=*(dp_obs.obs+i);
+            valid_num++;
+            //cout<<valid_num<<endl;
+          }
           //cout<<valid_num<<endl;
         }
-        //cout<<valid_num<<endl;
       }
-    }
-    if(valid_num==0)
-    {
-      dynamic_point[0]=origin;
-      for(int i=0;i<60*plan_s_local/plan_s+1;i++) 
+      if(valid_num==0)
       {
-        dynamic_point[i].s=origin.s+i*plan_s/60;
-        dynamic_point[i].sd=road_lu;
-        dynamic_point[i].sdd=road_ld;
-      }
-
-      ret=this->SecondaryPlanning(valid_obs,valid_obsf,valid_num);//二次规划
-        for(int i=0;i<61;i++)
-        {std::cout << "  "<<dynamic_point[i].l;
-        }
-        std::cout<< std::endl;
-        if(!ret)
+        dynamic_point[0]=origin;
+        for(int i=0;i<60*plan_s_local/plan_s+1;i++) 
         {
-          this->FreToCarte();
-        } 
-    }
-    else
-    {
-        for(int j=0;j<s_num;j++)//初始化散点
-        {
-            for(int k=0;k<l_num;k++)
-            {
-                dp_point[j][k].s=origin.s+sample_s*(j+1);
-                dp_point[j][k].l=road_lu-sample_l*(k+1);
-                dp_point[j][k].min_cost=0;
-                dp_point[j][k].last_index=0;
-            }
+          dynamic_point[i].s=origin.s+i*plan_s/60;
+          dynamic_point[i].sd=road_lu;
+          dynamic_point[i].sdd=road_ld;
         }
-        for(int i=0;i<s_num;i++)//计算cost
-        {
-            
-            for(int j=0;j<l_num;j++)
-            {
-                if(i==0)
-                {
-                  this->CalculateQuinticPolynomial(para,0,origin.l,origin.ld,origin.ldd,dp_point[i][j].s-origin.s,dp_point[i][j].l);//计算五次多项值系数,刷新para
-
-                  // std::cout << "0 "<<para[0] <<std::endl;
-                  // std::cout <<"1 "<<para[1] <<std::endl;
-                  // std::cout << "2 "<<para[2] <<std::endl;
-                  // std::cout << "3 "<<para[3] <<std::endl;
-                  // std::cout << "4 "<<para[4] <<std::endl;
-                  // std::cout << "5 "<<para[5] <<std::endl;
-
-
-                  dp_point[i][j].min_cost=this->CalculateCost(para,origin.s,valid_obs,valid_num);//计算起点到第一列当前点的cost
-                }
-                else
-                {
-                  this->CalculateMinCost(&dp_point[0][0],valid_obs,valid_num,i,j,para);//计算到该点最小的cost，更新该点cost以及上一点的列索引
-                }
-            }
-        }
-        best_index[s_num-1]=0;//初始化终点编号
-        for(int i=0;i<l_num;i++)//找出最好的规划终点
-        { 
-          if(dp_point[s_num-1][i].min_cost<dp_point[s_num-1][best_index[s_num-1]].min_cost)
-                  best_index[s_num-1]=i;
-        }
-        for(int i=0;i<s_num-1;i++)//算出最优轨迹各点编号
-        {
-            best_index[s_num-2-i]=dp_point[s_num-1-i][best_index[s_num-1-i]].last_index;
-
-        }
-        for(int i=0;i<s_num;i++)
-        {std::cout << "  "<<best_index[i];
-        }
-        std::cout<< std::endl;
-        
-        this->AddPoint(best_index,para,&dp_point[0][0],origin);//轨迹增密
-
-        for(int i=0;i<61;i++)
-        {std::cout << "  "<<dynamic_point[i].l;
-        }
-        std::cout<< std::endl;
         ret=this->SecondaryPlanning(valid_obs,valid_obsf,valid_num);//二次规划
-        
-        for(int i=0;i<61;i++)
-        {std::cout << "  "<<dynamic_point[i].l;
-        }
-        std::cout<< std::endl;
-
-        if(!ret)
+        if(plan_s_local<plan_s)
         {
-          this->FreToCarte();
-        } 
+          for(int i=60*plan_s_local/plan_s+1;i<61;i++)
+          {
+            dynamic_point[i].l=dynamic_point[int(60*plan_s_local/plan_s)].l;
+            dynamic_point[i].ld=dynamic_point[int(60*plan_s_local/plan_s)].ld;
+            dynamic_point[i].ldd=dynamic_point[int(60*plan_s_local/plan_s)].ldd;
+            dynamic_point[i].s=dynamic_point[int(60*plan_s_local/plan_s)].s;
+            dynamic_point[i].sd=dynamic_point[int(60*plan_s_local/plan_s)].sd;
+            dynamic_point[i].sdd=dynamic_point[int(60*plan_s_local/plan_s)].sdd;
+          }
+          // std::cout<<int(60*plan_s_local/plan_s)<<std::endl;
+          // std::cout<<plan_s_local<<std::endl;
+        }
+          // for(int i=0;i<61;i++)
+          // {std::cout << "  "<<dynamic_point[i].s;
+          // }
+          // std::cout<< std::endl;
+          if(!ret)
+          {
+            this->FreToCarte();
+          } 
+      }
+      else
+      {
+          for(int j=0;j<s_num;j++)//初始化散点
+          {
+              for(int k=0;k<l_num;k++)
+              {
+                  dp_point[j][k].s=origin.s+sample_s*(j+1);
+                  dp_point[j][k].l=road_lu-sample_l*(k+1);
+                  dp_point[j][k].min_cost=0;
+                  dp_point[j][k].last_index=0;
+              }
+          }
+          for(int i=0;i<s_num;i++)//计算cost
+          {
+              
+              for(int j=0;j<l_num;j++)
+              {
+                  if(i==0)
+                  {
+                    this->CalculateQuinticPolynomial(para,0,origin.l,origin.ld,origin.ldd,dp_point[i][j].s-origin.s,dp_point[i][j].l);//计算五次多项值系数,刷新para
+                    dp_point[i][j].min_cost=this->CalculateCost(para,origin.s,valid_obs,valid_num);//计算起点到第一列当前点的cost
+                  }
+                  else
+                  {
+                    this->CalculateMinCost(&dp_point[0][0],valid_obs,valid_num,i,j,para);//计算到该点最小的cost，更新该点cost以及上一点的列索引
+                  }
+              }
+          }
+          best_index[s_num-1]=0;//初始化终点编号
+          for(int i=0;i<l_num;i++)//找出最好的规划终点
+          { 
+            if(dp_point[s_num-1][i].min_cost<dp_point[s_num-1][best_index[s_num-1]].min_cost)
+                    best_index[s_num-1]=i;
+          }
+          for(int i=0;i<s_num-1;i++)//算出最优轨迹各点编号
+          {
+              best_index[s_num-2-i]=dp_point[s_num-1-i][best_index[s_num-1-i]].last_index;
+
+          }
+          
+          this->AddPoint(best_index,para,&dp_point[0][0],origin);//轨迹增密
+
+          ret=this->SecondaryPlanning(valid_obs,valid_obsf,valid_num);//二次规划
+          
+
+          if(plan_s_local<plan_s)
+          {
+          for(int i=60*plan_s_local/plan_s+1;i<61;i++)
+          {
+            dynamic_point[i].l=dynamic_point[int(60*plan_s_local/plan_s)].l;
+            dynamic_point[i].ld=dynamic_point[int(60*plan_s_local/plan_s)].ld;
+            dynamic_point[i].ldd=dynamic_point[int(60*plan_s_local/plan_s)].ldd;
+            dynamic_point[i].s=dynamic_point[int(60*plan_s_local/plan_s)].s;
+            dynamic_point[i].sd=dynamic_point[int(60*plan_s_local/plan_s)].sd;
+            dynamic_point[i].sdd=dynamic_point[int(60*plan_s_local/plan_s)].sdd;
+          }
+          // std::cout<<int(60*plan_s_local/plan_s)<<std::endl;
+          // std::cout<<plan_s_local<<std::endl;
+          }        
+          // for(int i=0;i<61;i++)
+          // {std::cout << "  "<<dynamic_point[i].l;
+          // }
+          // std::cout<< std::endl;
+
+          if(!ret)
+          {
+            this->FreToCarte();
+          } 
+      }
+      delete[] valid_obs;
+      delete[] valid_obsf;
     }
-    delete[] valid_obs;
-    delete[] valid_obsf;
 }
 
 void DynaPlaning::CalculateQuinticPolynomial(double* para,float start_s,float start_l,float start_dl,float start_ddl,float end_s,float end_l)
@@ -394,11 +417,11 @@ void DynaPlaning::AddPoint(int* best_index,double* para,Sample* dp_point,Frenet 
    int l_num=int((road_lu-road_ld)/sample_l-1);
 
    this->dynamic_point[0]=origin;
-   this->dynamic_point_f[0]=origin;
-   this->dynamic_point[0].sd=road_lu;
-   this->dynamic_point_f[0].sd=road_lu;
-   this->dynamic_point[0].sdd=road_ld;
-   this->dynamic_point_f[0].sdd=road_ld;
+   for(int i=0;i<61;i++)
+   {
+     this->dynamic_point[i].sd=road_lu;//先用于存储边界lmax，初始化为6
+     this->dynamic_point[i].sdd=road_ld;//先用于存储边界lmin，初始化为-6
+   }
    for(int i=0;i<s_num;i++)
    { 
         if(i==0)
@@ -417,25 +440,8 @@ void DynaPlaning::AddPoint(int* best_index,double* para,Sample* dp_point,Frenet 
             this->dynamic_point[i*int(sample_s/(plan_s/60))+j].l=(para[0]+para[1]*s+para[2]*s*s+para[3]*s*s*s+para[4]*s*s*s*s+para[5]*s*s*s*s*s)/scale;;
             this->dynamic_point[i*int(sample_s/(plan_s/60))+j].ld=para[1]+2*para[2]*s+3*para[3]*s*s+4*para[4]*s*s*s+5*para[5]*s*s*s*s;
             this->dynamic_point[i*int(sample_s/(plan_s/60))+j].ldd=(2*para[2]+2*3*para[3]*s+3*4*para[4]*s*s+4*5*para[5]*s*s*s)  * scale;
-            this->dynamic_point[i*int(sample_s/(plan_s/60))+j].sd=road_lu;//先用于存储边界lmax，初始化为6
-            this->dynamic_point[i*int(sample_s/(plan_s/60))+j].sdd=road_ld;//先用于存储边界lmin，初始化为-6
         }
-        for(int j=1;j<4*sample_s/(plan_s/60)+1;j++)
-        {
-            s=j*plan_s/240;
-            this->dynamic_point_f[i*int(sample_s/(plan_s/60))*4+j].s=origin.s+i*sample_s+s;;
-            this->dynamic_point_f[i*int(sample_s/(plan_s/60))*4+j].l=(para[0]+para[1]*s+para[2]*s*s+para[3]*s*s*s+para[4]*s*s*s*s+para[5]*s*s*s*s*s) / scale;
-            this->dynamic_point_f[i*int(sample_s/(plan_s/60))*4+j].ld=para[1]+2*para[2]*s+3*para[3]*s*s+4*para[4]*s*s*s+5*para[5]*s*s*s*s;
-            this->dynamic_point_f[i*int(sample_s/(plan_s/60))*4+j].ldd=(2*para[2]+2*3*para[3]*s+3*4*para[4]*s*s+4*5*para[5]*s*s*s) *scale;
-            this->dynamic_point_f[i*int(sample_s/(plan_s/60))*4+j].sd=road_lu;//先用于存储边界lmax，初始化为6
-            this->dynamic_point_f[i*int(sample_s/(plan_s/60))*4+j].sdd=road_ld;//先用于存储边界lmin，初始化为-6
-        }
-
-        for(int k=0;k<6;k++)
-        {
-          this->para_f[i][k]=para[k];
-        }
-   }
+    }
 }
 
 int DynaPlaning::SecondaryPlanning(Frenet* valid_obs,Obs* valid_obsf,int valid_num)
@@ -664,7 +670,7 @@ void DynaPlaning::FreToCarte()
     this->montage_index=0;
     Reference proj;
     float xr,yr,l,cr,ld,kr,ldd,kdr,dc;
-    for(int i=0;i<60*plan_s_local/plan_s+1;i++)
+    for(int i=0;i<60*plan_s/plan_s+1;i++)
     {
       proj=this->GetFTCproj(dynamic_point[i].s);
       xr=proj.x_r;

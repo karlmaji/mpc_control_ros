@@ -55,8 +55,6 @@ class DynaPlaning
      HostCar dp_car;
      Trajectory* traj;
      Frenet dynamic_point[61];
-     Frenet dynamic_point_f[241];
-     float para_f[10][6];
      int traj_num;
      int montage_index;
      float sample_l;

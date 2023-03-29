@@ -78,7 +78,7 @@ Reference Coordinate::getproj(float x,float y)//计算投影点
     {
         match_pnext=*((this->referenceline)+index+1);
         proj.s_r=match_point.s_r+ds;
-        proj.heading_r=(match_point.heading_r+match_pnext.heading_r)/2;
+        proj.heading_r=match_point.heading_r;
         proj.k_r=(match_point.k_r+match_pnext.k_r)/2;
         proj.x_r=match_point.x_r+ds*cos(match_point.heading_r);
         proj.y_r=match_point.y_r+ds*sin(match_point.heading_r);
@@ -96,7 +96,7 @@ Reference Coordinate::getproj(float x,float y)//计算投影点
     {
         match_pnext=*((this->referenceline)+index-1);
         proj.s_r=match_point.s_r+ds;
-        proj.heading_r=(match_point.heading_r+match_pnext.heading_r)/2;
+        proj.heading_r=match_point.heading_r;
         proj.k_r=(match_point.k_r+match_pnext.k_r)/2;
         proj.x_r=match_point.x_r+ds*cos(match_point.heading_r);
         proj.y_r=match_point.y_r+ds*sin(match_point.heading_r);

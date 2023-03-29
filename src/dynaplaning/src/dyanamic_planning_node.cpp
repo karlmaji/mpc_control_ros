@@ -15,7 +15,7 @@ std::vector<float> y;
 std::vector<float> sita;
 
 
-Trajectory traj[200];
+Trajectory traj[300];
 std::vector<Reference> global_path_reference;
 int GetLocalRef(int &start_index,float car_x,float car_y,float ref_length,std::vector<Reference> &path,Reference* p)
 {
@@ -75,7 +75,8 @@ int GetLocalRef(int &start_index,float car_x,float car_y,float ref_length,std::v
        break;
     }
   }
-  //std::cout<<"start "<<start<<" end "<<end<<std::endl;
+  // std::cout<<"start "<<start<<" end "<<end<<std::endl;
+  // std::cout<<"start_s "<<path[start].s_r<<" end_s "<<path[end].s_r<<std::endl;
   for(int i=0;i<=end-start;i++)
   {
     p[i]=path[i+start];
@@ -134,8 +135,8 @@ void car_pose_ck(const nav_msgs::Odometry::ConstPtr& pt)
     car_p.car_center_y = pt->pose.pose.position.y;
     car_p.car_acc =0;
     car_p.car_hesding = tf::getYaw(pt->pose.pose.orientation);
-    car_p.car_length = 0.6;
-    car_p.car_width = 0.25;
+    car_p.car_length = 0.2;
+    car_p.car_width = 0.1;
     car_p.car_velocity = pt->twist.twist.linear.x;
     float dsita = tf::getYaw(pt->pose.pose.orientation) - tf::getYaw(last_time_car_pose.pose.pose.orientation);
     if(abs(dsita)> abs(dsita + M_2_PI)) {dsita += M_2_PI;}
@@ -236,12 +237,12 @@ int main(int argc, char **argv)
         if(global_path_reference.size()>0)
         {
             //std::cout << "path size"<<global_path_reference.size()<<std::endl;
-            int length_point = GetLocalRef(start_index,car_p.car_center_x,car_p.car_center_y,3,global_path_reference,referenceline); 
+            int length_point = GetLocalRef(start_index,car_p.car_center_x,car_p.car_center_y,4,global_path_reference,referenceline); 
 
             HostCar carp(car_p,referenceline,length_point);
             Obstacle obst(obs_p,2,referenceline,length_point);
             //std::cout << "length_point"<<length_point <<std::endl;
-            DynaPlaning DP(obst,carp,0,0.1,0.1,100,500,w_smooth,50,5000,q_w_smooth,1);
+            DynaPlaning DP(obst,carp,0,0.1,0.1,100,500,w_smooth,50,500,q_w_smooth,2);
             DP.traj=traj;
             DP.DynamicProgramming();
 
