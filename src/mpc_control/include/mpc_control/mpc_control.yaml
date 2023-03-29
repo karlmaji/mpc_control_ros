@@ -19,7 +19,7 @@ control_window: 5
 delta_T: 0.05 #s
 
 path_ref_topic: path_ref
-current_pose_topic: nokov
+current_pose_topic: nokov/robot_1
 current_odom_topic: odom
 cmd_vel_topic: cmd_vel
 path_real_topic: path_real

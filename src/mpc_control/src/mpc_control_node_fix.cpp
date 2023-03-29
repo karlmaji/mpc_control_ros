@@ -41,13 +41,15 @@ void normalize_sita(const double &sita_before,double &sita_after)
 
 int find_index_for_nowtime(const nav_msgs::Path & follow_path,const int begin_index=0)
 {
-    double t_now = ros::Time::now().toSec();
+    auto time_now = ros::Time::now();
+    double t_now = time_now.toSec();
     for(int i=begin_index;i<follow_path.poses.size();i++)
     {
         double t_point = follow_path.poses[i].header.stamp.toSec();
         if((t_point - t_now)<0) continue;
         else return i;
     }
+
     return -1;
 
 }
@@ -68,17 +70,17 @@ int main(int argc, char **argv)
     geometry_msgs::Twist cmd_vel;
 
 
-    ros::Subscriber sub = n.subscribe("path_ref",1000,ref_path_callbk);
+    ros::Subscriber sub = n.subscribe("path_ref",10,ref_path_callbk);
 
-    ros::Subscriber odom_sub = n.subscribe("odom",1000,current_odom_callbk);
+    ros::Subscriber odom_sub = n.subscribe("odom",10,current_odom_callbk);
 
-    ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel",1000);
+    ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel",10);
 
-    ros::Publisher path_pub = n.advertise<nav_msgs::Path>("path_real",1000);
+    ros::Publisher path_pub = n.advertise<nav_msgs::Path>("path_real",10);
 
-    ros::Publisher path_pred_pub = n.advertise<nav_msgs::Path>("path_pred",1000);
+    ros::Publisher path_pred_pub = n.advertise<nav_msgs::Path>("path_pred",10);
 
-    ros::Publisher path_follow_pub = n.advertise<nav_msgs::Path>("path_follow",1000);
+    ros::Publisher path_follow_pub = n.advertise<nav_msgs::Path>("path_follow",10);
     path.header.frame_id ="map";
     
     //-----------------------------------------//

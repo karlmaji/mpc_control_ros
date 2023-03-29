@@ -221,6 +221,7 @@ int main(int argc, char **argv)
     ros::init(argc,argv,"mpc_control_node_class");
     ros::NodeHandle n;
     mpc_control_node mpc(&n);
+    ros::Time::init();
     
 
     ros::Rate loop_rate(mpc.control_frequency);

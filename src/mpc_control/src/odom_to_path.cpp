@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     n_private.param<std::string>("bag_file",bag_file,"/home/karl/ros1/src/mpc_control/src/test.bag");
     rosbag::Bag bag;
     bag.open(bag_file);
-    ros::Publisher pub = n.advertise<nav_msgs::Path>("path_ref",1000);
+    ros::Publisher pub = n.advertise<nav_msgs::Path>("global_path",1000);
 
 
 

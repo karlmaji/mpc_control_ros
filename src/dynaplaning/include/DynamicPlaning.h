@@ -30,7 +30,7 @@ struct Sample
 class DynaPlaning
 {
   public:
-     DynaPlaning(Obstacle obst,HostCar carp,int num,float sp_l,float sp_s,float w_coll,float w_ref,float w_smooth[3],float q_w_mid,float q_w_ref,float q_w_smooth[3]);
+     DynaPlaning(Obstacle obst,HostCar carp,int num,float sp_l,float sp_s,float w_coll,float w_ref,float w_smooth[3],float q_w_mid,float q_w_ref,float q_w_smooth[3],float pl_s);
      Trajectory GetStartPlaningPoint();
      Frenet CarToFre(Trajectory trj);
      void DynamicProgramming();
@@ -64,10 +64,12 @@ class DynaPlaning
      float road_lu;
      float road_ld;
      float plan_s;
+     float plan_s_local;
      float dp_cost_collision;
      float dp_cost_ref;
      float dp_cost_smooth[3];
      float qp_cost_ref;
      float qp_cost_mid;
      float qp_cost_smooth[3];
+     float scale;
 };

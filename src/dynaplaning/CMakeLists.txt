@@ -9,6 +9,9 @@ set (CMAKE_CXX_STANDARD 11)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  nav_msgs
+  visualization_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -164,7 +167,7 @@ add_library(
 # add_executable(${PROJECT_NAME}_node src/dynaplaning_node.cpp)
 
 add_executable(test1 src/main.cpp)
-
+add_executable(dyanamic_planning_node src/dyanamic_planning_node.cpp)
 
 
 ## Rename C++ executable without prefix
@@ -182,6 +185,9 @@ add_executable(test1 src/main.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(test1 OsqpEigen::OsqpEigen DynamicPlaning  car Sensor transform)
+
+target_link_libraries(dyanamic_planning_node ${catkin_LIBRARIES} OsqpEigen::OsqpEigen DynamicPlaning  car Sensor transform)
+
 target_link_libraries(DynamicPlaning OsqpEigen::OsqpEigen car Sensor transform)
 target_link_libraries(car transform)
 target_link_libraries(Sensor transform)

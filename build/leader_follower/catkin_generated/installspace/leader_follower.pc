@@ -1,0 +1,8 @@
+prefix=/home/yl-01/mh_code/ros1/install
+
+Name: leader_follower
+Description: Description of leader_follower
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

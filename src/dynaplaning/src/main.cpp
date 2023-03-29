@@ -34,9 +34,9 @@ int main()
     Obs obs_p[6]; 
     Car car_p;
     car_p.car_acc=0;
-    car_p.car_center_x=296*sin(30*dc);
-    car_p.car_center_y=-296*cos(30*dc);
-    car_p.car_hesding=30*dc;
+    car_p.car_center_x=296*sin(178*dc);
+    car_p.car_center_y=-296*cos(178*dc);
+    car_p.car_hesding=178*dc;
     car_p.car_k=0;
     car_p.car_length=5;
     car_p.car_velocity=0;
@@ -54,7 +54,7 @@ int main()
     }
     HostCar carp(car_p,referenceline,181);
     Obstacle obst(obs_p,3,referenceline,181);
-    DynaPlaning DP(obst,carp,0,1,6,100,50,w_smooth,50,10,q_w_smooth);
+    DynaPlaning DP(obst,carp,0,1,6,100,50,w_smooth,50,10,q_w_smooth,60);
     DP.traj=traj;
     DP.DynamicProgramming();
     

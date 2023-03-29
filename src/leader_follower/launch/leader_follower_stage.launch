@@ -1,0 +1,61 @@
+<launch>
+<arg name="control_topic" value="robot_1/cmd_vel"/>
+
+        <!--  ************** Stage Simulator ***************  -->
+	<node pkg="stage_ros" type="stageros" name="stageros" args="$(find leader_follower)/stage/maze_carlike.world">
+		<remap from="/robot_0/odom" to="robot_0/odom"/>
+  	</node>
+  	<!-- <node pkg="tf" type="static_transform_publisher" name="base_odom_to_map" args = "0 0 0 0 0 0  map robot_0/odom 120"/> -->
+	<!--  ****** Maps *****  -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find leader_follower)/maps/maze.yaml" output="screen">
+                <param name="frame_id" value="map"/>
+	</node>
+
+	<node pkg="amcl" type="amcl" name="amcl_robot_0" output="screen">
+		<remap from="scan" to="robot_0/base_scan"/>
+		<remap from="amcl_pose" to="robot_0/amcl_pose"/>
+		<rosparam file="$(find leader_follower)/cfg/amcl_params.yaml" command="load" />
+	    <param name="initial_pose_x"            value="2"/>
+		<param name="initial_pose_y"            value="2"/>
+		<param name="initial_pose_a"            value="0"/>
+		<param name= "odom_frame_id" value = "robot_0/odom"/>
+		<param name= "base_frame_id" value = "robot_0/base_footprint"/>
+	</node>
+
+	<node pkg="amcl" type="amcl" name="amcl_robot_1" output="screen">
+		<remap from="scan" to="robot_1/base_scan"/>
+		<remap from="amcl_pose" to="robot_1/amcl_pose"/>
+		<rosparam file="$(find leader_follower)/cfg/amcl_params.yaml" command="load" />
+	    <param name="initial_pose_x"            value="2"/>
+		<param name="initial_pose_y"            value="3"/>
+		<param name="initial_pose_a"            value="0"/>
+		<param name= "odom_frame_id" value = "robot_1/odom"/>
+		<param name= "base_frame_id" value = "robot_1/base_footprint"/>
+
+	</node>
+	
+	<!--  **************** Visualisation ****************  -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find leader_follower)/cfg/rviz_navigation.rviz" />
+
+
+	
+	<node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix" output="screen">
+    <rosparam command="load" file ="$(find leader_follower)/cfg/mpc_control_stage.yaml"/>
+	<remap from="cmd_vel" to="robot_0/cmd_vel"/>
+	<remap from="odom" to="robot_0/odom"/>
+	</node>
+
+	<node name="create_car_path" pkg="leader_follower" type="create_car_path">
+	<remap from="odom" to="robot_1/odom"/>
+	</node>
+
+	<node name="follower_node" pkg="leader_follower" type="follower_node">
+	</node>
+
+	<include file="$(find wheeltec_joy)/launch/joy_control.launch">
+		<arg name="control_topic" value="$(arg control_topic)" />
+	</include>
+	<!-- 
+	<node name="pid_control" pkg="mpc_control" type="pid_control_node" output="screen"/>
+	-->
+</launch>
