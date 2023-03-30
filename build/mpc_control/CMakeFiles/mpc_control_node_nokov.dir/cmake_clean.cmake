@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/mpc_control/mpc_control_node_nokov"
-  "/home/yl-01/mh_code/ros1/devel/lib/mpc_control/mpc_control_node_nokov.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/mpc_control/mpc_control_node_nokov"
+  "/home/karl/mpc_control_ros/devel/lib/mpc_control/mpc_control_node_nokov.pdb"
   "CMakeFiles/mpc_control_node_nokov.dir/src/mpc_control_node_nokov.cpp.o"
 )
 

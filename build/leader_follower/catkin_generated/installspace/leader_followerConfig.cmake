@@ -67,14 +67,14 @@ set(leader_follower_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(leader_follower_SOURCE_PREFIX /home/yl-01/mh_code/ros1/src/leader_follower)
-  set(leader_follower_DEVEL_PREFIX /home/yl-01/mh_code/ros1/devel)
+  set(leader_follower_SOURCE_PREFIX /home/karl/mpc_control_ros/src/leader_follower)
+  set(leader_follower_DEVEL_PREFIX /home/karl/mpc_control_ros/devel)
   set(leader_follower_INSTALL_PREFIX "")
   set(leader_follower_PREFIX ${leader_follower_DEVEL_PREFIX})
 else()
   set(leader_follower_SOURCE_PREFIX "")
   set(leader_follower_DEVEL_PREFIX "")
-  set(leader_follower_INSTALL_PREFIX /home/yl-01/mh_code/ros1/install)
+  set(leader_follower_INSTALL_PREFIX /home/karl/mpc_control_ros/install)
   set(leader_follower_PREFIX ${leader_follower_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(leader_follower_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "include " STREQUAL " ")
+if(NOT " " STREQUAL " ")
   set(leader_follower_INCLUDE_DIRS "")
-  set(_include_dirs "include")
+  set(_include_dirs "")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/yl-01/mh_code/ros1/install/lib;/opt/ros/noetic/lib)
+    foreach(path /home/karl/mpc_control_ros/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

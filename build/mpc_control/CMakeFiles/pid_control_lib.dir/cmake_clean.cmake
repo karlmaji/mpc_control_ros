@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/libpid_control_lib.pdb"
-  "/home/yl-01/mh_code/ros1/devel/lib/libpid_control_lib.so"
+  "/home/karl/mpc_control_ros/devel/lib/libpid_control_lib.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/libpid_control_lib.so"
   "CMakeFiles/pid_control_lib.dir/include/pid_control/pid_control.cpp.o"
 )
 

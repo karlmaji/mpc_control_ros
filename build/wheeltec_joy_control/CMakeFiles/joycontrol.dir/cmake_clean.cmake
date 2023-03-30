@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/wheeltec_joy/joycontrol"
-  "/home/yl-01/mh_code/ros1/devel/lib/wheeltec_joy/joycontrol.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/wheeltec_joy/joycontrol"
+  "/home/karl/mpc_control_ros/devel/lib/wheeltec_joy/joycontrol.pdb"
   "CMakeFiles/joycontrol.dir/src/control.cpp.o"
 )
 

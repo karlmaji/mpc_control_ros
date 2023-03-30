@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/mpc_control/read_bag"
-  "/home/yl-01/mh_code/ros1/devel/lib/mpc_control/read_bag.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/mpc_control/read_bag"
+  "/home/karl/mpc_control_ros/devel/lib/mpc_control/read_bag.pdb"
   "CMakeFiles/read_bag.dir/src/readbag_test.cpp.o"
 )
 

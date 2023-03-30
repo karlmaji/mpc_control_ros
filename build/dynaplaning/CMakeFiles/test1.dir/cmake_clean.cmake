@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/dynaplaning/test1"
-  "/home/yl-01/mh_code/ros1/devel/lib/dynaplaning/test1.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/dynaplaning/test1"
+  "/home/karl/mpc_control_ros/devel/lib/dynaplaning/test1.pdb"
   "CMakeFiles/test1.dir/src/main.cpp.o"
 )
 

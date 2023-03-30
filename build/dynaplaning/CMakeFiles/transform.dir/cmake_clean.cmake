@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/libtransform.pdb"
-  "/home/yl-01/mh_code/ros1/devel/lib/libtransform.so"
+  "/home/karl/mpc_control_ros/devel/lib/libtransform.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/libtransform.so"
   "CMakeFiles/transform.dir/src/transform.cpp.o"
 )
 

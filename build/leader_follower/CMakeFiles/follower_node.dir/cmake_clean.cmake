@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/leader_follower/follower_node"
-  "/home/yl-01/mh_code/ros1/devel/lib/leader_follower/follower_node.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/leader_follower/follower_node"
+  "/home/karl/mpc_control_ros/devel/lib/leader_follower/follower_node.pdb"
   "CMakeFiles/follower_node.dir/src/follower_node.cpp.o"
 )
 

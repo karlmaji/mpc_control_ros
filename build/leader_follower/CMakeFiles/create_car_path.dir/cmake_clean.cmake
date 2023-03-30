@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/leader_follower/create_car_path"
-  "/home/yl-01/mh_code/ros1/devel/lib/leader_follower/create_car_path.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/leader_follower/create_car_path"
+  "/home/karl/mpc_control_ros/devel/lib/leader_follower/create_car_path.pdb"
   "CMakeFiles/create_car_path.dir/src/create_car_path.cpp.o"
 )
 

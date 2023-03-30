@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/wheeltec_joy/joy_node"
-  "/home/yl-01/mh_code/ros1/devel/lib/wheeltec_joy/joy_node.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/wheeltec_joy/joy_node"
+  "/home/karl/mpc_control_ros/devel/lib/wheeltec_joy/joy_node.pdb"
   "CMakeFiles/joy_node.dir/src/joy_node.cpp.o"
 )
 

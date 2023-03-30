@@ -1,8 +1,8 @@
-# Install script for directory: /home/yl-01/mh_code/ros1/src/mpc_control
+# Install script for directory: /home/karl/mpc_control_ros/src/mpc_control
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/yl-01/mh_code/ros1/install")
+  set(CMAKE_INSTALL_PREFIX "/home/karl/mpc_control_ros/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "RelWithDebInfo")
+    set(CMAKE_INSTALL_CONFIG_NAME "")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -38,26 +38,26 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yl-01/mh_code/ros1/build/mpc_control/catkin_generated/installspace/mpc_control.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/karl/mpc_control_ros/build/mpc_control/catkin_generated/installspace/mpc_control.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mpc_control/cmake" TYPE FILE FILES
-    "/home/yl-01/mh_code/ros1/build/mpc_control/catkin_generated/installspace/mpc_controlConfig.cmake"
-    "/home/yl-01/mh_code/ros1/build/mpc_control/catkin_generated/installspace/mpc_controlConfig-version.cmake"
+    "/home/karl/mpc_control_ros/build/mpc_control/catkin_generated/installspace/mpc_controlConfig.cmake"
+    "/home/karl/mpc_control_ros/build/mpc_control/catkin_generated/installspace/mpc_controlConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mpc_control" TYPE FILE FILES "/home/yl-01/mh_code/ros1/src/mpc_control/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mpc_control" TYPE FILE FILES "/home/karl/mpc_control_ros/src/mpc_control/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mpc_control" TYPE DIRECTORY FILES
-    "/home/yl-01/mh_code/ros1/src/mpc_control/launch"
-    "/home/yl-01/mh_code/ros1/src/mpc_control/stage"
-    "/home/yl-01/mh_code/ros1/src/mpc_control/maps"
-    "/home/yl-01/mh_code/ros1/src/mpc_control/cfg"
+    "/home/karl/mpc_control_ros/src/mpc_control/launch"
+    "/home/karl/mpc_control_ros/src/mpc_control/stage"
+    "/home/karl/mpc_control_ros/src/mpc_control/maps"
+    "/home/karl/mpc_control_ros/src/mpc_control/cfg"
     )
 endif()
 

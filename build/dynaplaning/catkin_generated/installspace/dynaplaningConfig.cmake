@@ -67,14 +67,14 @@ set(dynaplaning_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(dynaplaning_SOURCE_PREFIX /home/yl-01/mh_code/ros1/src/dynaplaning)
-  set(dynaplaning_DEVEL_PREFIX /home/yl-01/mh_code/ros1/devel)
+  set(dynaplaning_SOURCE_PREFIX /home/karl/mpc_control_ros/src/dynaplaning)
+  set(dynaplaning_DEVEL_PREFIX /home/karl/mpc_control_ros/devel)
   set(dynaplaning_INSTALL_PREFIX "")
   set(dynaplaning_PREFIX ${dynaplaning_DEVEL_PREFIX})
 else()
   set(dynaplaning_SOURCE_PREFIX "")
   set(dynaplaning_DEVEL_PREFIX "")
-  set(dynaplaning_INSTALL_PREFIX /home/yl-01/mh_code/ros1/install)
+  set(dynaplaning_INSTALL_PREFIX /home/karl/mpc_control_ros/install)
   set(dynaplaning_PREFIX ${dynaplaning_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/yl-01/mh_code/ros1/install/lib;/opt/ros/noetic/lib)
+    foreach(path /home/karl/mpc_control_ros/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

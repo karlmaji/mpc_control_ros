@@ -1,4 +1,4 @@
-prefix=/home/yl-01/mh_code/ros1/install
+prefix=/home/karl/mpc_control_ros/install
 
 Name: mpc_control
 Description: Description of mpc_control

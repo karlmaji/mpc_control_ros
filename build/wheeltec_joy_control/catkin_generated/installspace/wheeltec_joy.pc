@@ -1,4 +1,4 @@
-prefix=/home/yl-01/mh_code/ros1/install
+prefix=/home/karl/mpc_control_ros/install
 
 Name: wheeltec_joy
 Description: Description of wheeltec_joy

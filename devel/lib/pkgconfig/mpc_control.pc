@@ -1,8 +1,8 @@
-prefix=/home/yl-01/mh_code/ros1/devel
+prefix=/home/karl/mpc_control_ros/devel
 
 Name: mpc_control
 Description: Description of mpc_control
 Version: 0.0.0
-Cflags: -I/home/yl-01/mh_code/ros1/src/mpc_control/include
+Cflags: -I/home/karl/mpc_control_ros/src/mpc_control/include
 Libs: -L${prefix}/lib 
 Requires: 

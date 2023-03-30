@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/libcar.pdb"
-  "/home/yl-01/mh_code/ros1/devel/lib/libcar.so"
+  "/home/karl/mpc_control_ros/devel/lib/libcar.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/libcar.so"
   "CMakeFiles/car.dir/src/car.cpp.o"
 )
 

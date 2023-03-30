@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/mpc_control/mpc"
-  "/home/yl-01/mh_code/ros1/devel/lib/mpc_control/mpc.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/mpc_control/mpc"
+  "/home/karl/mpc_control_ros/devel/lib/mpc_control/mpc.pdb"
   "CMakeFiles/mpc.dir/include/mpc_control/mpc_control_node_class.cpp.o"
 )
 

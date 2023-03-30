@@ -1,9 +1,2 @@
 # Hashes of file build rules.
-202b9d3fedb4fde59e406fac9777d50d /home/yl-01/mh_code/ros1/devel/include/motion_capture/nokovStamped.h
-895cf102e777b0bb1a9566ec5255634b /home/yl-01/mh_code/ros1/devel/lib/python3/dist-packages/motion_capture/msg/__init__.py
-1ab99f3680f7696bcbbfe4c1227f1118 /home/yl-01/mh_code/ros1/devel/lib/python3/dist-packages/motion_capture/msg/_nokovStamped.py
-06b9e7948c1b67093577a90dcb8dfe09 /home/yl-01/mh_code/ros1/devel/share/common-lisp/ros/motion_capture/msg/nokovStamped.lisp
-b4eac6c182d7d5e85b83d4647da08cc0 /home/yl-01/mh_code/ros1/devel/share/gennodejs/ros/motion_capture/msg/nokovStamped.js
-978d7cb982d336b7911ff3abbb691e6d /home/yl-01/mh_code/ros1/devel/share/roseus/ros/motion_capture/manifest.l
-72188aa32021d6a51390e51189bb3b7a /home/yl-01/mh_code/ros1/devel/share/roseus/ros/motion_capture/msg/nokovStamped.l
-1959cd735dfd2e7de52057cfeef57494 CMakeFiles/clean_test_results
+55ec89747cfc188b8e6b9e2897471aac CMakeFiles/clean_test_results

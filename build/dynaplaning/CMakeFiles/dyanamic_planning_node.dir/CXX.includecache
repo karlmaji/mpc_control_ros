@@ -6,55 +6,55 @@
 
 #IncludeRegexTransform: 
 
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/DynamicPlaning.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/DynamicPlaning.h
 iostream
 -
 Eigen/Dense
 -
 OsqpEigen/OsqpEigen.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/OsqpEigen/OsqpEigen.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/OsqpEigen/OsqpEigen.h
 Sensor.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/Sensor.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/Sensor.h
 car.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/car.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/car.h
 
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/Sensor.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/Sensor.h
 iostream
 -
 transform.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/transform.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/transform.h
 
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/car.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/car.h
 iostream
 -
 transform.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/transform.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/transform.h
 
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/transform.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/transform.h
 iostream
 -
 math.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/include/math.h
+/home/karl/mpc_control_ros/src/dynaplaning/include/math.h
 
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/dyanamic_planning_node.cpp
+/home/karl/mpc_control_ros/src/dynaplaning/src/dyanamic_planning_node.cpp
 ros/ros.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/ros/ros.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/ros/ros.h
 DynamicPlaning.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/DynamicPlaning.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/DynamicPlaning.h
 car.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/car.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/car.h
 transform.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/transform.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/transform.h
 Sensor.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/Sensor.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/Sensor.h
 nav_msgs/Path.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/nav_msgs/Path.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/nav_msgs/Path.h
 nav_msgs/Odometry.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/nav_msgs/Odometry.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/nav_msgs/Odometry.h
 tf/tf.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/tf/tf.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/tf/tf.h
 visualization_msgs/Marker.h
-/home/yl-01/mh_code/ros1/src/dynaplaning/src/visualization_msgs/Marker.h
+/home/karl/mpc_control_ros/src/dynaplaning/src/visualization_msgs/Marker.h
 
 /opt/ros/noetic/include/geometry_msgs/Point.h
 string

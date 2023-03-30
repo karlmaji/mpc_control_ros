@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/yl-01/mh_code/ros1/devel/lib/libDynamicPlaning.pdb"
-  "/home/yl-01/mh_code/ros1/devel/lib/libDynamicPlaning.so"
+  "/home/karl/mpc_control_ros/devel/lib/libDynamicPlaning.pdb"
+  "/home/karl/mpc_control_ros/devel/lib/libDynamicPlaning.so"
   "CMakeFiles/DynamicPlaning.dir/src/DynamicPlaning.cpp.o"
 )
 
