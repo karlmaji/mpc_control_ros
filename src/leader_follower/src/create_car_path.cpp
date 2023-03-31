@@ -22,7 +22,8 @@ void create_car_path_class::odomCallback(const nav_msgs::Odometry::ConstPtr& od)
     geometry_msgs::PoseStamped pose;
     pose.pose = od->pose.pose;
     pose.header = od->header;
-
+    
+    if(leader_path.poses.size()>1000) leader_path.poses.erase(leader_path.poses.begin());
     leader_path.poses.push_back(pose);
     leader_path.header.frame_id ="map";
     path_pub.publish(leader_path);
@@ -40,10 +41,8 @@ int main(int argc, char **argv)
 
     
 
-    while (ros::ok())
-    {
-        ros::spin();
-    }
+    ros::spin();
+    
     
     return 0;
 } 

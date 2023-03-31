@@ -6,10 +6,10 @@ v_max: 1.5 #m/s
 v_min: -0.4 
 sita_a_max: 1.57 #rad/s
 sita_a_min: -1.57 #rad/s
-Q_x: 10000.0
-Q_y: 10000.0
-Q_sita: 500.0
-R_v: 1000
+Q_x: 2000.0
+Q_y: 2000.0
+Q_sita: 1000.0
+R_v: 250
 R_sita_a: 100
 T_v: 0.0
 T_sita_a: 0.0
@@ -18,10 +18,3 @@ mpc_window: 20
 control_window: 5
 delta_T: 0.05 #s
 
-path_ref_topic: path_ref
-current_pose_topic: nokov
-current_odom_topic: odom
-cmd_vel_topic: cmd_vel
-path_real_topic: path_real
-path_to_follow_topic: path_to_follow
-path_pred_topic: path_pred

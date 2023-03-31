@@ -12,16 +12,16 @@ int main(int argc, char **argv)
     ros::init(argc,argv,"bag_to_path");
     //创建节点句柄
     ros::NodeHandle n;
-    std::string bag_file;
+    std::string bag_file,path_topic_name;
     rosbag::Bag bag;
     ros::NodeHandle n_private("~");
 
     n_private.param<std::string>("bag_file",bag_file,"/home/yl-01/mh_code/ros1/src/mpc_control/src/test_nokov.bag");
-    
+    n_private.param<std::string>("path_topic_name",path_topic_name,"path_global");
     bag.open(bag_file);
-    ros::Publisher pub = n.advertise<nav_msgs::Path>("path_ref",1000);
-
-
+    ros::Publisher pub = n.advertise<nav_msgs::Path>(path_topic_name,10);
+    // std::vector<std::string> topics;
+    // rosbag::View v(bag,rosbag::TopicQuery(topics));
 
     for(rosbag::MessageInstance const m: rosbag::View(bag))
    {

@@ -25,6 +25,7 @@
 
 	<node name="bag_to_path" pkg="mpc_control" type="bag_to_path">
 	<param name="bag_file" value = "$(find mpc_control)/src/test_nokov_1.bag"/>
+	<param name="path_topic_name" value = "path_global"/>
 	</node>
 	
 	<node name="mpc_control_node" pkg="mpc_control" type="mpc" output="screen">

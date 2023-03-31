@@ -108,6 +108,7 @@
 /home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/test.dir
 /home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/install/strip.dir
 /home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/follower_node.dir
+/home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/create_car_path_nokov.dir
 /home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/install.dir
 /home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/list_install_components.dir
 /home/karl/mpc_control_ros/build/leader_follower/CMakeFiles/rebuild_cache.dir

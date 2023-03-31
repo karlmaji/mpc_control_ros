@@ -24,19 +24,21 @@ void follower_node::leader_path_callbk(const nav_msgs::PathConstPtr& pt)
         double x= leader_path.poses[i].pose.position.x - leader_path.poses[i-1].pose.position.x;
         double y= leader_path.poses[i].pose.position.y - leader_path.poses[i-1].pose.position.y;
         s += sqrt(pow(x,2) + pow(y,2));
-        if(s>1.0) {index = i;break;}
+        if(s>1) {index = i;break;}
 
     }
     if(index!=-1){
         ref_path.poses.clear();
         ref_path.header.frame_id = "map";
         auto time_now = ros::Time::now();
-        for(int i = 0;i<60;i++)
+        for(int i = 0;i< 22;i++)
         {
             geometry_msgs::PoseStamped pose_stamp;
             pose_stamp.header.frame_id = "map";
-            pose_stamp.header.stamp = time_now + ros::Duration(0.1 * (i+1));
-            pose_stamp.pose = leader_path.poses[index].pose;
+            pose_stamp.header.stamp = time_now + ros::Duration(0.05 * (i+1));
+            // pose_stamp.pose = leader_path.poses[index].pose;
+            if(index< 22)pose_stamp.pose = leader_path.poses[index].pose;
+            else pose_stamp.pose = leader_path.poses[index-22 + i ].pose;
             
 
             ref_path.poses.push_back(pose_stamp);

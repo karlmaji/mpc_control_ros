@@ -183,6 +183,21 @@ follower_node/fast:
 .PHONY : follower_node/fast
 
 # Convenience name for target.
+leader_follower/CMakeFiles/create_car_path_nokov.dir/rule:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f CMakeFiles/Makefile2 leader_follower/CMakeFiles/create_car_path_nokov.dir/rule
+.PHONY : leader_follower/CMakeFiles/create_car_path_nokov.dir/rule
+
+# Convenience name for target.
+create_car_path_nokov: leader_follower/CMakeFiles/create_car_path_nokov.dir/rule
+
+.PHONY : create_car_path_nokov
+
+# fast build rule for target.
+create_car_path_nokov/fast:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f leader_follower/CMakeFiles/create_car_path_nokov.dir/build.make leader_follower/CMakeFiles/create_car_path_nokov.dir/build
+.PHONY : create_car_path_nokov/fast
+
+# Convenience name for target.
 leader_follower/CMakeFiles/create_car_path.dir/rule:
 	cd /home/karl/mpc_control_ros/build && $(MAKE) -f CMakeFiles/Makefile2 leader_follower/CMakeFiles/create_car_path.dir/rule
 .PHONY : leader_follower/CMakeFiles/create_car_path.dir/rule
@@ -224,6 +239,33 @@ src/create_car_path.cpp.s:
 	cd /home/karl/mpc_control_ros/build && $(MAKE) -f leader_follower/CMakeFiles/create_car_path.dir/build.make leader_follower/CMakeFiles/create_car_path.dir/src/create_car_path.cpp.s
 .PHONY : src/create_car_path.cpp.s
 
+src/create_car_path_nokov.o: src/create_car_path_nokov.cpp.o
+
+.PHONY : src/create_car_path_nokov.o
+
+# target to build an object file
+src/create_car_path_nokov.cpp.o:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f leader_follower/CMakeFiles/create_car_path_nokov.dir/build.make leader_follower/CMakeFiles/create_car_path_nokov.dir/src/create_car_path_nokov.cpp.o
+.PHONY : src/create_car_path_nokov.cpp.o
+
+src/create_car_path_nokov.i: src/create_car_path_nokov.cpp.i
+
+.PHONY : src/create_car_path_nokov.i
+
+# target to preprocess a source file
+src/create_car_path_nokov.cpp.i:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f leader_follower/CMakeFiles/create_car_path_nokov.dir/build.make leader_follower/CMakeFiles/create_car_path_nokov.dir/src/create_car_path_nokov.cpp.i
+.PHONY : src/create_car_path_nokov.cpp.i
+
+src/create_car_path_nokov.s: src/create_car_path_nokov.cpp.s
+
+.PHONY : src/create_car_path_nokov.s
+
+# target to generate assembly for a file
+src/create_car_path_nokov.cpp.s:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f leader_follower/CMakeFiles/create_car_path_nokov.dir/build.make leader_follower/CMakeFiles/create_car_path_nokov.dir/src/create_car_path_nokov.cpp.s
+.PHONY : src/create_car_path_nokov.cpp.s
+
 src/follower_node.o: src/follower_node.cpp.o
 
 .PHONY : src/follower_node.o
@@ -262,6 +304,7 @@ help:
 	@echo "... test"
 	@echo "... install/strip"
 	@echo "... follower_node"
+	@echo "... create_car_path_nokov"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
@@ -269,6 +312,9 @@ help:
 	@echo "... src/create_car_path.o"
 	@echo "... src/create_car_path.i"
 	@echo "... src/create_car_path.s"
+	@echo "... src/create_car_path_nokov.o"
+	@echo "... src/create_car_path_nokov.i"
+	@echo "... src/create_car_path_nokov.s"
 	@echo "... src/follower_node.o"
 	@echo "... src/follower_node.i"
 	@echo "... src/follower_node.s"

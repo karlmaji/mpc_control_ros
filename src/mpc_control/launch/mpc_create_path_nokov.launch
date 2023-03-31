@@ -1,6 +1,7 @@
 <launch>
 <node name="path_publisher_nokov" pkg="mpc_control" type="path_publisher_nokov">
 <param name="bag_file" value = "$(find mpc_control)/src/test_nokov_1.bag"/>
+<param name="nokov_topic" value = "nokov"/>
 </node>
 
 <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mpc_control)/cfg/rviz_nokov.rviz" />

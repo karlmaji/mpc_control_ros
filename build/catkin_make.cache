@@ -1,2 +1,2 @@
 dynaplaning:leader_follower:mpc_control:wheeltec_joy_control
--DCATKIN_DEVEL_PREFIX=/home/karl/mpc_control_ros/devel -DCMAKE_INSTALL_PREFIX=/home/karl/mpc_control_ros/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_DEVEL_PREFIX=/home/karl/mpc_control_ros/devel -DCMAKE_INSTALL_PREFIX=/home/karl/mpc_control_ros/install -G Unix Makefiles

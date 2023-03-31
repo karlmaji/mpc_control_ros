@@ -135,7 +135,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/leader_follower_node.cpp)
 add_executable(create_car_path src/create_car_path.cpp)
-
+add_executable(create_car_path_nokov src/create_car_path_nokov.cpp)
 add_executable(follower_node src/follower_node.cpp)
 
 ## Rename C++ executable without prefix
@@ -147,6 +147,7 @@ add_executable(follower_node src/follower_node.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 target_link_libraries(create_car_path ${catkin_LIBRARIES})
+target_link_libraries(create_car_path_nokov ${catkin_LIBRARIES})
 target_link_libraries(follower_node ${catkin_LIBRARIES})
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
