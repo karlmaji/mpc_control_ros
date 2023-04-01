@@ -8,8 +8,8 @@ sita_a_max: 1.57 #rad/s
 sita_a_min: -1.57 #rad/s
 Q_x: 2000.0
 Q_y: 2000.0
-Q_sita: 1000.0
-R_v: 250
+Q_sita: 500.0
+R_v: 300
 R_sita_a: 100
 T_v: 0.0
 T_sita_a: 0.0
