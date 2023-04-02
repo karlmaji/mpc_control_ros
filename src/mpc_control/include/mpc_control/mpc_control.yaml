@@ -2,15 +2,15 @@ map_x_max: 10.0 #m
 map_x_min: -10.0
 map_y_max: 10.0 #m
 map_y_min: -10.0
-v_max: 0.8 #m/s
+v_max: 0.7 #m/s
 v_min: -0.4 
 sita_a_max: 1.54 #rad/s
 sita_a_min: -1.54 #rad/s
-Q_x: 1000.0
-Q_y: 1000.0
-Q_sita: 500.
-R_v: 100
-R_sita_a: 50
+Q_x: 2500.0
+Q_y: 2500.0
+Q_sita: 1500.
+R_v: 250
+R_sita_a: 150
 T_v: 0.0
 T_sita_a: 0.0
 Q_weight_decay: 1.0
@@ -18,10 +18,11 @@ mpc_window: 20
 control_window: 5
 delta_T: 0.05 #s
 
-path_ref_topic: path_ref
-current_pose_topic: nokov/robot_1
-current_odom_topic: odom
-cmd_vel_topic: cmd_vel
+
+path_ref_topic: path_global
+current_pose_topic: robot_1/nokov
+current_odom_topic: robot_1/odom
+cmd_vel_topic: robot_1/cmd_vel
 path_real_topic: path_real
 path_to_follow_topic: path_to_follow
 path_pred_topic: path_pred

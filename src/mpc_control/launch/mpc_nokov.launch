@@ -24,14 +24,16 @@
 
 
 	<node name="bag_to_path" pkg="mpc_control" type="bag_to_path">
-	<param name="bag_file" value = "$(find mpc_control)/src/test_nokov_1.bag"/>
+	<param name="bag_file" value = "$(find mpc_control)/src/test_nokov_2.bag"/>
 	<param name="path_topic_name" value = "path_global"/>
 	</node>
 	
 	<node name="mpc_control_node" pkg="mpc_control" type="mpc" output="screen">
     <rosparam command="load" file ="$(find mpc_control)/include/mpc_control/mpc_control.yaml"/>
-	</node>
-	
+	</node> 
+
+	<node name="bag_record" pkg="rosbag" type="record" args="--topic /robot_1/odom /path_global /path_real -O $(find mpc_control)/cfg/bag_record.bag "/>
+
 	<!-- 
 	<node name="pid_control" pkg="mpc_control" type="pid_control_node" output="screen"/>
 	-->
