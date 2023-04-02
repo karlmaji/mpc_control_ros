@@ -10,6 +10,7 @@ int main(int argc, char **argv)
 {
     //ros节点初始化 "listener"节点名称，在ROS里同一时间不允许出现两个
     ros::init(argc,argv,"bag_to_path");
+    ros::Time::init();
     //创建节点句柄
     ros::NodeHandle n;
     std::string bag_file,path_topic_name;
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
     {   
         double x = ods[i].pose.position.x;
         double y = ods[i].pose.position.y;
-        if(std::pow(x,2)+std::pow(y,2)>0.1)
+        if(std::pow(x,2)+std::pow(y,2)>0.01)
         {
         this_pose_stamped.pose = ods[i].pose;
         this_pose_stamped.header = ods[i].header;

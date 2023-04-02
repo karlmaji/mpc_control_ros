@@ -13,7 +13,7 @@
 	</node>
 
 	<node name="create_car_path_nokov" pkg="leader_follower" type="create_car_path_nokov">
-	<remap from="nokov" to="robot_1/nokov"/>
+	<remap from="nokov" to="robot_2/nokov"/>
 	</node>
 
 	<node name="follower_node" pkg="leader_follower" type="follower_node">
