@@ -4,10 +4,10 @@ map_y_max: 10.0 #m
 map_y_min: -10.0
 v_max: 0.8 #m/s
 v_min: -0.4 
-sita_a_max: 1.57 #rad/s
-sita_a_min: -1.57 #rad/s
-Q_x: 10000.0
-Q_y: 10000.0
+sita_a_max: 2 #rad/s
+sita_a_min: -2 #rad/s
+Q_x: 2000.0
+Q_y: 2000.0
 Q_sita: 500.0
 R_v: 100
 R_sita_a: 50

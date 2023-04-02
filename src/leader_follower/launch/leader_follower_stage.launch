@@ -15,7 +15,7 @@
 		<remap from="scan" to="robot_0/base_scan"/>
 		<remap from="amcl_pose" to="robot_0/amcl_pose"/>
 		<rosparam file="$(find leader_follower)/cfg/amcl_params.yaml" command="load" />
-	    <param name="initial_pose_x"            value="2"/>
+	    <param name="initial_pose_x"            value="1"/>
 		<param name="initial_pose_y"            value="2"/>
 		<param name="initial_pose_a"            value="0"/>
 		<param name= "odom_frame_id" value = "robot_0/odom"/>
@@ -27,7 +27,7 @@
 		<remap from="amcl_pose" to="robot_1/amcl_pose"/>
 		<rosparam file="$(find leader_follower)/cfg/amcl_params.yaml" command="load" />
 	    <param name="initial_pose_x"            value="2"/>
-		<param name="initial_pose_y"            value="3"/>
+		<param name="initial_pose_y"            value="2"/>
 		<param name="initial_pose_a"            value="0"/>
 		<param name= "odom_frame_id" value = "robot_1/odom"/>
 		<param name= "base_frame_id" value = "robot_1/base_footprint"/>
@@ -39,7 +39,7 @@
 
 
 	
-	<node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix" output="screen">
+	<node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix">
     <rosparam command="load" file ="$(find leader_follower)/cfg/mpc_control_stage.yaml"/>
 	<remap from="cmd_vel" to="robot_0/cmd_vel"/>
 	<remap from="odom" to="robot_0/odom"/>
@@ -55,6 +55,24 @@
 	<include file="$(find wheeltec_joy)/launch/joy_control.launch">
 		<arg name="control_topic" value="$(arg control_topic)" />
 	</include>
+
+	<node name="show_car_in_stage_1" pkg="mpc_control" type="show_car_in_stage">
+	<remap from="odom" to="robot_1/odom"/>
+	<remap from="car_marker" to = "rotbot_1/car_marker"/>
+	<param name="x_scale" value="0.4"/>
+	<param name="y_scale" value="0.2"/>
+	</node>
+
+	<node name="show_car_in_stage_2" pkg="mpc_control" type="show_car_in_stage">
+	<remap from="odom" to="robot_0/odom"/>
+	<remap from="car_marker" to = "rotbot_0/car_marker"/>
+	<param name="x_scale" value="0.4"/>
+	<param name="y_scale" value="0.2"/>
+	</node>
+	<node name="key_board" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py">
+	<remap from="cmd_vel" to ="robot_1/cmd_vel"/>
+	</node>
+
 	<!-- 
 	<node name="pid_control" pkg="mpc_control" type="pid_control_node" output="screen"/>
 	-->

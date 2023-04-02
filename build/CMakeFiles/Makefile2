@@ -263,6 +263,7 @@ mpc_control/all: mpc_control/CMakeFiles/mpc_control_node.dir/all
 mpc_control/all: mpc_control/CMakeFiles/pid_control_node.dir/all
 mpc_control/all: mpc_control/CMakeFiles/mpc_control_node_nokov.dir/all
 mpc_control/all: mpc_control/CMakeFiles/bag_to_path.dir/all
+mpc_control/all: mpc_control/CMakeFiles/show_car_in_stage.dir/all
 mpc_control/all: mpc_control/CMakeFiles/path_publisher.dir/all
 mpc_control/all: mpc_control/CMakeFiles/mpc_test.dir/all
 
@@ -297,6 +298,7 @@ mpc_control/clean: mpc_control/CMakeFiles/pid_control_node.dir/clean
 mpc_control/clean: mpc_control/CMakeFiles/mpc_control_node_nokov.dir/clean
 mpc_control/clean: mpc_control/CMakeFiles/std_srvs_generate_messages_py.dir/clean
 mpc_control/clean: mpc_control/CMakeFiles/bag_to_path.dir/clean
+mpc_control/clean: mpc_control/CMakeFiles/show_car_in_stage.dir/clean
 mpc_control/clean: mpc_control/CMakeFiles/path_publisher.dir/clean
 mpc_control/clean: mpc_control/CMakeFiles/mpc_test.dir/clean
 
@@ -576,7 +578,7 @@ dynaplaning/CMakeFiles/test1.dir/all: dynaplaning/CMakeFiles/DynamicPlaning.dir/
 dynaplaning/CMakeFiles/test1.dir/all: dynaplaning/CMakeFiles/car.dir/all
 	$(MAKE) -f dynaplaning/CMakeFiles/test1.dir/build.make dynaplaning/CMakeFiles/test1.dir/depend
 	$(MAKE) -f dynaplaning/CMakeFiles/test1.dir/build.make dynaplaning/CMakeFiles/test1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/karl/mpc_control_ros/build/CMakeFiles --progress-num=57,58 "Built target test1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/karl/mpc_control_ros/build/CMakeFiles --progress-num=59,60 "Built target test1"
 .PHONY : dynaplaning/CMakeFiles/test1.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1089,7 +1091,7 @@ dynaplaning/CMakeFiles/roscpp_generate_messages_py.dir/clean:
 dynaplaning/CMakeFiles/transform.dir/all:
 	$(MAKE) -f dynaplaning/CMakeFiles/transform.dir/build.make dynaplaning/CMakeFiles/transform.dir/depend
 	$(MAKE) -f dynaplaning/CMakeFiles/transform.dir/build.make dynaplaning/CMakeFiles/transform.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/karl/mpc_control_ros/build/CMakeFiles --progress-num=59,60 "Built target transform"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/karl/mpc_control_ros/build/CMakeFiles --progress-num=61,62 "Built target transform"
 .PHONY : dynaplaning/CMakeFiles/transform.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2923,6 +2925,33 @@ bag_to_path: mpc_control/CMakeFiles/bag_to_path.dir/rule
 mpc_control/CMakeFiles/bag_to_path.dir/clean:
 	$(MAKE) -f mpc_control/CMakeFiles/bag_to_path.dir/build.make mpc_control/CMakeFiles/bag_to_path.dir/clean
 .PHONY : mpc_control/CMakeFiles/bag_to_path.dir/clean
+
+#=============================================================================
+# Target rules for target mpc_control/CMakeFiles/show_car_in_stage.dir
+
+# All Build rule for target.
+mpc_control/CMakeFiles/show_car_in_stage.dir/all:
+	$(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/depend
+	$(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/karl/mpc_control_ros/build/CMakeFiles --progress-num=57,58 "Built target show_car_in_stage"
+.PHONY : mpc_control/CMakeFiles/show_car_in_stage.dir/all
+
+# Build rule for subdir invocation for target.
+mpc_control/CMakeFiles/show_car_in_stage.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/karl/mpc_control_ros/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 mpc_control/CMakeFiles/show_car_in_stage.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/karl/mpc_control_ros/build/CMakeFiles 0
+.PHONY : mpc_control/CMakeFiles/show_car_in_stage.dir/rule
+
+# Convenience name for target.
+show_car_in_stage: mpc_control/CMakeFiles/show_car_in_stage.dir/rule
+
+.PHONY : show_car_in_stage
+
+# clean rule for target.
+mpc_control/CMakeFiles/show_car_in_stage.dir/clean:
+	$(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/clean
+.PHONY : mpc_control/CMakeFiles/show_car_in_stage.dir/clean
 
 #=============================================================================
 # Target rules for target mpc_control/CMakeFiles/path_publisher.dir

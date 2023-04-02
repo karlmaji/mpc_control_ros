@@ -2,4 +2,4 @@
 source_root_dir = '/home/karl/mpc_control_ros/src'
 whitelisted_packages = ''.split(';') if '' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/opt/ros/noetic'.split(';') if '/opt/ros/noetic' != '' else []
+underlay_workspaces = '/home/karl/mpc_control_ros/devel;/opt/ros/noetic'.split(';') if '/home/karl/mpc_control_ros/devel;/opt/ros/noetic' != '' else []

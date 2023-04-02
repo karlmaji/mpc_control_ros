@@ -92,6 +92,16 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -124,16 +134,6 @@ test:
 test/fast: test
 
 .PHONY : test/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -511,6 +511,21 @@ bag_to_path: mpc_control/CMakeFiles/bag_to_path.dir/rule
 bag_to_path/fast:
 	cd /home/karl/mpc_control_ros/build && $(MAKE) -f mpc_control/CMakeFiles/bag_to_path.dir/build.make mpc_control/CMakeFiles/bag_to_path.dir/build
 .PHONY : bag_to_path/fast
+
+# Convenience name for target.
+mpc_control/CMakeFiles/show_car_in_stage.dir/rule:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f CMakeFiles/Makefile2 mpc_control/CMakeFiles/show_car_in_stage.dir/rule
+.PHONY : mpc_control/CMakeFiles/show_car_in_stage.dir/rule
+
+# Convenience name for target.
+show_car_in_stage: mpc_control/CMakeFiles/show_car_in_stage.dir/rule
+
+.PHONY : show_car_in_stage
+
+# fast build rule for target.
+show_car_in_stage/fast:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/build
+.PHONY : show_car_in_stage/fast
 
 # Convenience name for target.
 mpc_control/CMakeFiles/path_publisher.dir/rule:
@@ -923,6 +938,33 @@ src/readbag_test.cpp.s:
 	cd /home/karl/mpc_control_ros/build && $(MAKE) -f mpc_control/CMakeFiles/read_bag.dir/build.make mpc_control/CMakeFiles/read_bag.dir/src/readbag_test.cpp.s
 .PHONY : src/readbag_test.cpp.s
 
+src/show_car_in_stage.o: src/show_car_in_stage.cpp.o
+
+.PHONY : src/show_car_in_stage.o
+
+# target to build an object file
+src/show_car_in_stage.cpp.o:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/src/show_car_in_stage.cpp.o
+.PHONY : src/show_car_in_stage.cpp.o
+
+src/show_car_in_stage.i: src/show_car_in_stage.cpp.i
+
+.PHONY : src/show_car_in_stage.i
+
+# target to preprocess a source file
+src/show_car_in_stage.cpp.i:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/src/show_car_in_stage.cpp.i
+.PHONY : src/show_car_in_stage.cpp.i
+
+src/show_car_in_stage.s: src/show_car_in_stage.cpp.s
+
+.PHONY : src/show_car_in_stage.s
+
+# target to generate assembly for a file
+src/show_car_in_stage.cpp.s:
+	cd /home/karl/mpc_control_ros/build && $(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/src/show_car_in_stage.cpp.s
+.PHONY : src/show_car_in_stage.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -932,6 +974,7 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... mpc_control_fix_lib"
 	@echo "... topic_tools_generate_messages_py"
 	@echo "... topic_tools_generate_messages_lisp"
@@ -958,9 +1001,9 @@ help:
 	@echo "... std_srvs_generate_messages_py"
 	@echo "... test"
 	@echo "... bag_to_path"
+	@echo "... show_car_in_stage"
 	@echo "... path_publisher"
 	@echo "... mpc_test"
-	@echo "... list_install_components"
 	@echo "... include/mpc_control/mpc_control.o"
 	@echo "... include/mpc_control/mpc_control.i"
 	@echo "... include/mpc_control/mpc_control.s"
@@ -1003,6 +1046,9 @@ help:
 	@echo "... src/readbag_test.o"
 	@echo "... src/readbag_test.i"
 	@echo "... src/readbag_test.s"
+	@echo "... src/show_car_in_stage.o"
+	@echo "... src/show_car_in_stage.i"
+	@echo "... src/show_car_in_stage.s"
 .PHONY : help
 
 

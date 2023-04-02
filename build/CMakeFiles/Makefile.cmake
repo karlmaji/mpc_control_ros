@@ -387,6 +387,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "mpc_control/CMakeFiles/mpc_control_node_nokov.dir/DependInfo.cmake"
   "mpc_control/CMakeFiles/std_srvs_generate_messages_py.dir/DependInfo.cmake"
   "mpc_control/CMakeFiles/bag_to_path.dir/DependInfo.cmake"
+  "mpc_control/CMakeFiles/show_car_in_stage.dir/DependInfo.cmake"
   "mpc_control/CMakeFiles/path_publisher.dir/DependInfo.cmake"
   "mpc_control/CMakeFiles/mpc_test.dir/DependInfo.cmake"
   "wheeltec_joy_control/CMakeFiles/joy_node.dir/DependInfo.cmake"

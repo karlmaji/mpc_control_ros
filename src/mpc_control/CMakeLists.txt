@@ -180,6 +180,7 @@ add_executable(mpc_test src/mpc_test.cpp)
 
 add_executable(mpc include/mpc_control/mpc_control_node_class.cpp)
 
+add_executable(show_car_in_stage src/show_car_in_stage.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -211,6 +212,8 @@ target_link_libraries(mpc_control_node_class mpc_control_fix_lib ${catkin_LIBRAR
 
 
 target_link_libraries(mpc mpc_control_node_class ${catkin_LIBRARIES})
+target_link_libraries(show_car_in_stage  ${catkin_LIBRARIES})
+
 #############
 ## Install ##
 #############

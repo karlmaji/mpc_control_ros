@@ -120,7 +120,7 @@ void global_path_ck(const nav_msgs::PathConstPtr &pt)
 {
     global_path = *pt;
     std::vector<float> x,y,sita;
-    for(int i=60;i<global_path.poses.size();i++)
+    for(int i=58;i<global_path.poses.size();i++)
     {
         x.push_back(global_path.poses[i].pose.position.x);
         y.push_back(global_path.poses[i].pose.position.y);
@@ -135,8 +135,8 @@ void car_pose_ck(const nav_msgs::Odometry::ConstPtr& pt)
     car_p.car_center_y = pt->pose.pose.position.y;
     car_p.car_acc =0;
     car_p.car_hesding = tf::getYaw(pt->pose.pose.orientation);
-    car_p.car_length = 0.2;
-    car_p.car_width = 0.1;
+    car_p.car_length = 0.4;
+    car_p.car_width = 0.2;
     car_p.car_velocity = pt->twist.twist.linear.x;
     float dsita = tf::getYaw(pt->pose.pose.orientation) - tf::getYaw(last_time_car_pose.pose.pose.orientation);
     if(abs(dsita)> abs(dsita + M_2_PI)) {dsita += M_2_PI;}

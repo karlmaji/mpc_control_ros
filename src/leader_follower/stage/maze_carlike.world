@@ -39,7 +39,7 @@ floorplan
 # throw in a robot
 carlike_robot
 (
-  pose [ 2.0 2.0 0.0 0.0 ]
+  pose [1.0 2.0 0.0 0.0 ]
   name "robot_0"
 )
 
@@ -48,7 +48,7 @@ carlike_robot
 # throw in a robot
 carlike_robot
 (
-  pose [ 2.0 3.0 0.0 0.0 ]
+  pose [ 2.0 2.0 0.0 0.0 ]
   name "robot_1"
 )
 

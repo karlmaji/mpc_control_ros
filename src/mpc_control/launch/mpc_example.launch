@@ -31,7 +31,8 @@
 	</node>
 	<node name="dyanamic_planning_node" pkg="dynaplaning" type="dyanamic_planning_node" output="screen">
 	</node>
-
+	<node name="show_car_in_stage" pkg="mpc_control" type="show_car_in_stage">
+	</node>
 	<!-- 
 	<node name="pid_control" pkg="mpc_control" type="pid_control_node" output="screen"/>
 	-->

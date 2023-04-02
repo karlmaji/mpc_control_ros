@@ -1416,6 +1416,19 @@ bag_to_path/fast:
 .PHONY : bag_to_path/fast
 
 #=============================================================================
+# Target rules for targets named show_car_in_stage
+
+# Build rule for target.
+show_car_in_stage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 show_car_in_stage
+.PHONY : show_car_in_stage
+
+# fast build rule for target.
+show_car_in_stage/fast:
+	$(MAKE) -f mpc_control/CMakeFiles/show_car_in_stage.dir/build.make mpc_control/CMakeFiles/show_car_in_stage.dir/build
+.PHONY : show_car_in_stage/fast
+
+#=============================================================================
 # Target rules for targets named path_publisher
 
 # Build rule for target.
@@ -1576,6 +1589,7 @@ help:
 	@echo "... mpc_control_node_nokov"
 	@echo "... std_srvs_generate_messages_py"
 	@echo "... bag_to_path"
+	@echo "... show_car_in_stage"
 	@echo "... path_publisher"
 	@echo "... mpc_test"
 	@echo "... joy_node"
