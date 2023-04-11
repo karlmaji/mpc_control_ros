@@ -12,8 +12,8 @@ DynaPlaning::DynaPlaning(Obstacle obst,HostCar carp,int num,float sp_l,float sp_
     this->plan_s = pl_s;
     this->dp_cost_collision=w_coll;
     this->dp_cost_ref=w_ref;
-    this->road_ld=-0.4;
-    this->road_lu=0.4;
+    this->road_ld=-0.8;
+    this->road_lu=0.8;
     this->scale = 100;
     for(int i=0;i<3;i++)
     {
@@ -533,12 +533,14 @@ int DynaPlaning::SecondaryPlanning(Frenet* valid_obs,Obs* valid_obsf,int valid_n
    }
    for(int i=0;i<3*n;i++)
    {
-    if(i<0)
+    if(i<3)
     {
-      lowerBound(0+6*n-2)=dynamic_point[0].l;
-      upperBound(0+6*n-2)=dynamic_point[0].l;
+      lowerBound(0+6*n-2)=dynamic_point[0].l-0.05;
+      upperBound(0+6*n-2)=dynamic_point[0].l+0.05;
+
       lowerBound(1+6*n-2)=dynamic_point[0].ld;
       upperBound(1+6*n-2)=dynamic_point[0].ld;
+
       lowerBound(2+6*n-2)=dynamic_point[0].ldd;
       upperBound(2+6*n-2)=dynamic_point[0].ldd;
     }

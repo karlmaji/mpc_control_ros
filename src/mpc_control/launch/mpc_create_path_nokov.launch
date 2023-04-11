@@ -1,6 +1,6 @@
 <launch>
 <node name="path_publisher_nokov" pkg="mpc_control" type="path_publisher_nokov">
-<param name="bag_file" value = "$(find mpc_control)/src/test_nokov_2.bag"/>
+<param name="bag_file" value = "$(find mpc_control)/src/robot_1_path.bag"/>
 <param name="nokov_topic" value = "robot_1/nokov"/>
 </node>
 

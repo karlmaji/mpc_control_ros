@@ -168,7 +168,7 @@ add_library(
 
 add_executable(test1 src/main.cpp)
 add_executable(dyanamic_planning_node src/dyanamic_planning_node.cpp)
-
+add_executable(dyanamic_planning_nokov src/dyanamic_planning_nokov.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -187,6 +187,8 @@ add_executable(dyanamic_planning_node src/dyanamic_planning_node.cpp)
 target_link_libraries(test1 OsqpEigen::OsqpEigen DynamicPlaning  car Sensor transform)
 
 target_link_libraries(dyanamic_planning_node ${catkin_LIBRARIES} OsqpEigen::OsqpEigen DynamicPlaning  car Sensor transform)
+
+target_link_libraries(dyanamic_planning_nokov ${catkin_LIBRARIES} OsqpEigen::OsqpEigen DynamicPlaning  car Sensor transform)
 
 target_link_libraries(DynamicPlaning OsqpEigen::OsqpEigen car Sensor transform)
 target_link_libraries(car transform)
@@ -228,11 +230,10 @@ target_link_libraries(Sensor transform)
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+install(DIRECTORY
+  launch cfg
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 #############
 ## Testing ##
