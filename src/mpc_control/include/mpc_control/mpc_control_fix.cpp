@@ -199,7 +199,7 @@ void MPC_Control::castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 3, 3> 
 void MPC_Control::castMPCToQPConstraintVectors(const Eigen::Matrix<double, 3, 1> &xMax, const Eigen::Matrix<double, 3, 1> &xMin,
                                    const Eigen::Matrix<double, 2, 1> &uMax, const Eigen::Matrix<double, 2, 1> &uMin,
                                    const Eigen::Matrix<double, 3, 1> &x0,
-                                   int mpcWindow, int controlWindow,Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
+                                   int mpcWindow,Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
 {
     // evaluate the lower and the upper inequality vectors
     Eigen::VectorXd lowerInequality = Eigen::MatrixXd::Zero(3*(mpcWindow+1) +  2 * mpcWindow, 1);
@@ -217,10 +217,7 @@ void MPC_Control::castMPCToQPConstraintVectors(const Eigen::Matrix<double, 3, 1>
         lowerInequality.block(2 * i + 3 * (mpcWindow + 1), 0, 2, 1) = uMin;
         upperInequality.block(2 * i + 3 * (mpcWindow + 1), 0, 2, 1) = uMax;
     }
-    // for(int i=0;i<2*(mpcWindow-controlWindow);i++)
-    // {
-    //     lowerInequality(i + 2*controlWindow+3*(mpcWindow+1)) = 0;
-    // }
+
 
     // evaluate the lower and the upper equality vectors
     Eigen::VectorXd lowerEquality = Eigen::MatrixXd::Zero(3*(mpcWindow+1),1 );
@@ -271,7 +268,7 @@ bool MPC_Control::step(const Eigen::Matrix<double,3,1>&x0,const Eigen::Matrix<do
     this->castMPCToQPConstraintMatrix(this->_a,this->_b,this->_mpc_window,this->_control_window,this->_linearMatrix);
     this->castMPCToQPConstraintVectors(this->_xMax,this->_xMin,this->_uMax,this->_uMin,
                                        x0,
-                                       this->_mpc_window,this->_control_window,this->_lowerBound,this->_upperBound);
+                                       this->_mpc_window,this->_lowerBound,this->_upperBound);
     
     this->castMPCToQPGradient(this->_Q,this->_T,xref,uref,this->_mpc_window,this->_gradient);
 

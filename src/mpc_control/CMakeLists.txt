@@ -152,6 +152,14 @@ include/mpc_control/mpc_control_node_class.h
 include/mpc_control/mpc_control_node_class.cpp
 )
 
+# ## Declare a C++ library
+add_library(mpc_control_increamental_lib
+include/mpc_control_with_incremental_constraints/mpc_control_increamental.h
+include/mpc_control_with_incremental_constraints/mpc_control_increamental.cpp
+)
+
+
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -181,6 +189,14 @@ add_executable(mpc_test src/mpc_test.cpp)
 add_executable(mpc include/mpc_control/mpc_control_node_class.cpp)
 
 add_executable(show_car_in_stage src/show_car_in_stage.cpp)
+<<<<<<< HEAD
+=======
+
+add_executable(show_car_in_nokov src/show_car_in_nokov.cpp)
+
+add_executable(mpc_increamental_node_stage include/mpc_control_with_incremental_constraints/mpc_control_node_increamental.cpp)
+
+>>>>>>> f8cef1c9830e6d45d55b8eb8989d68018e35585b
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -202,6 +218,11 @@ target_link_libraries(mpc_control_node  mpc_control_lib  ${catkin_LIBRARIES})
 target_link_libraries(mpc_control_node_fix  mpc_control_fix_lib  ${catkin_LIBRARIES})
 target_link_libraries(mpc_control_lib  OsqpEigen::OsqpEigen  ${catkin_LIBRARIES})
 target_link_libraries(mpc_control_fix_lib  OsqpEigen::OsqpEigen  ${catkin_LIBRARIES})
+
+
+target_link_libraries(mpc_control_increamental_lib  OsqpEigen::OsqpEigen  ${catkin_LIBRARIES})
+target_link_libraries(mpc_increamental_node_stage  mpc_control_increamental_lib  ${catkin_LIBRARIES})
+
 
 target_link_libraries(mpc_control_node_nokov  mpc_control_fix_lib  ${catkin_LIBRARIES})
 target_link_libraries(bag_to_path  ${catkin_LIBRARIES})

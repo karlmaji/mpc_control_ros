@@ -26,8 +26,11 @@
 	<param name="bag_file" value = "$(find mpc_control)/src/test1.bag"/>
 	</node>
 	
-	<node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix">
+	<!-- <node name="mpc_control_node_fix" pkg="mpc_control" type="mpc_control_node_fix">
     <rosparam command="load" file ="$(find mpc_control)/include/mpc_control/mpc_control_stage.yaml"/>
+	</node> -->
+	<node name="mpc_control_node_increamental" pkg="mpc_control" type="mpc_increamental_node_stage" output="screen">
+    <rosparam command="load" file ="$(find mpc_control)/include/mpc_control_with_incremental_constraints/mpc_control_increamental_stage.yaml"/>
 	</node>
 	<node name="dyanamic_planning_node" pkg="dynaplaning" type="dyanamic_planning_node" output="screen">
 	</node>
