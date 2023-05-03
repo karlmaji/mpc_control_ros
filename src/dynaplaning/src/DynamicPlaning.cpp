@@ -537,10 +537,8 @@ int DynaPlaning::SecondaryPlanning(Frenet* valid_obs,Obs* valid_obsf,int valid_n
     {
       lowerBound(0+6*n-2)=dynamic_point[0].l-0.05;
       upperBound(0+6*n-2)=dynamic_point[0].l+0.05;
-
       lowerBound(1+6*n-2)=dynamic_point[0].ld;
       upperBound(1+6*n-2)=dynamic_point[0].ld;
-
       lowerBound(2+6*n-2)=dynamic_point[0].ldd;
       upperBound(2+6*n-2)=dynamic_point[0].ldd;
     }

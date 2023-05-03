@@ -33,7 +33,7 @@ mpc_control_node::mpc_control_node(ros::NodeHandle* nodehandle):nh_(*nodehandle)
     this->init(node_name);
 
 
-    this->control_frequency = 1/this->_delta_T;
+    this->control_frequency = 1.0/this->_delta_T;
     std::cout<< control_frequency<<std::endl;
 }
 
@@ -50,10 +50,11 @@ void mpc_control_node::run_step()
     ros::spinOnce();
     if(ref_path.poses.size()>0)
     {
-        int count = find_index_for_nowtime(ref_path);
+        int count = find_index_for_nowtime(ref_path,0);
 
         if(count!=-1 && count< ref_path.poses.size()-this->_mpc_window-1)
         {
+            auto path_ref_local = ref_path;
             double x_now=current_pose.pose.position.x;
             double y_now=current_pose.pose.position.y;
             double sita_now = tf::getYaw(current_pose.pose.orientation);
@@ -72,12 +73,12 @@ void mpc_control_node::run_step()
             for(int i=0;i<this->_mpc_window+1;i++)
             {
                 Eigen::Matrix<double,3,1> x_iter;
-                double x=ref_path.poses.at(count+i).pose.position.x;
-                double y=ref_path.poses.at(count+i).pose.position.y;
-                double sita = tf::getYaw(ref_path.poses.at(count+i).pose.orientation) - sita_now;
+                double x=path_ref_local.poses.at(count+i).pose.position.x;
+                double y=path_ref_local.poses.at(count+i).pose.position.y;
+                double sita = tf::getYaw(path_ref_local.poses.at(count+i).pose.orientation) - sita_now;
 
                 geometry_msgs::PoseStamped pose_stamp;
-                pose_stamp = ref_path.poses.at(count+i);
+                pose_stamp = path_ref_local.poses.at(count+i);
                 path_to_follow.poses.push_back(pose_stamp);
 
                 if(i==0)
@@ -205,7 +206,7 @@ void mpc_control_node::normalize_sita(const double &sita_before,double &sita_aft
 int mpc_control_node::find_index_for_nowtime(const nav_msgs::Path & follow_path,const int begin_index)
 {
     double t_now = ros::Time::now().toSec();
-    for(int i=begin_index;i<follow_path.poses.size();i++)
+    for(int i=begin_index;i<follow_path.poses.size()-1;i++)
     {
         double t_point = follow_path.poses[i].header.stamp.toSec();
         if((t_point - t_now)<0) continue;

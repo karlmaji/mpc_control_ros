@@ -7,14 +7,17 @@
 #include "nav_msgs/Odometry.h"
 #include "tf/tf.h"
 #include "visualization_msgs/Marker.h"
+#include"std_msgs/Float64MultiArray.h"          
+#include"std_msgs/String.h"
+#include<vector>
 nav_msgs::Path global_path;
 nav_msgs::Odometry last_time_car_pose;
 Car car_p;
 std::vector<float> x;
 std::vector<float> y;
 std::vector<float> sita;
-
-
+double obs_life_time1=0;
+double obs_life_time2=0;
 Trajectory traj[300];
 std::vector<Reference> global_path_reference;
 int GetLocalRef(int &start_index,float car_x,float car_y,float ref_length,std::vector<Reference> &path,Reference* p)
@@ -116,11 +119,22 @@ void getref(std::vector<float> &x,std::vector<float> &y,std::vector<float> &sita
   path[0].k_rd=(path[1].k_r-path[0].k_r)/(path[1].s_r-path[0].s_r+1e-4);
 }
 
+void reference_get_s(Reference* path)
+{
+   float ds;
+   path[0].s_r=0;
+  for(int i=1;i<60;i++)
+  {
+   ds=std::sqrt((path[i].x_r-path[i-1].x_r)*(path[i].x_r-path[i-1].x_r)+(path[i].y_r-path[i-1].y_r)*(path[i].y_r-path[i-1].y_r)) +1e-4;
+   path[i].s_r=path[i-1].s_r+ds;
+  }
+}
+
 void global_path_ck(const nav_msgs::PathConstPtr &pt)
 {
     global_path = *pt;
     std::vector<float> x,y,sita;
-    for(int i=58;i<global_path.poses.size();i++)
+    for(int i=60;i<global_path.poses.size();i++)
     {
         x.push_back(global_path.poses[i].pose.position.x);
         y.push_back(global_path.poses[i].pose.position.y);
@@ -135,9 +149,10 @@ void car_pose_ck(const nav_msgs::Odometry::ConstPtr& pt)
     car_p.car_center_y = pt->pose.pose.position.y;
     car_p.car_acc =0;
     car_p.car_hesding = tf::getYaw(pt->pose.pose.orientation);
-    car_p.car_length = 0.4;
-    car_p.car_width = 0.2;
+    car_p.car_length = 0.3;
+    car_p.car_width = 0.15;
     car_p.car_velocity = pt->twist.twist.linear.x;
+    cout<<"car_v:"<<car_p.car_velocity <<endl;
     float dsita = tf::getYaw(pt->pose.pose.orientation) - tf::getYaw(last_time_car_pose.pose.pose.orientation);
     if(abs(dsita)> abs(dsita + M_2_PI)) {dsita += M_2_PI;}
     else if(abs(dsita)>abs(dsita- M_2_PI))   {dsita -=M_2_PI;}
@@ -166,8 +181,9 @@ int main(int argc, char **argv)
     float q_w_smooth[3]={1000,500,200};
     float dc=M_PI/360;
     Obs obs_p[2];
-
+    Obs obs_d[1];
     Reference referenceline[1000];
+    Reference dp_referenceline[60];
     for(int i=0;i<1;i++)
     {
         obs_p[i].obs_acc=0;
@@ -179,14 +195,14 @@ int main(int argc, char **argv)
         obs_p[i].obs_velocity=0;
         obs_p[i].obs_width=0.05;
     }
-        obs_p[1].obs_acc=0;
-        obs_p[1].obs_center_x=2.54;
-        obs_p[1].obs_center_y=2.92;
-        obs_p[1].obs_hesding=0;
-        obs_p[1].obs_k=0;
-        obs_p[1].obs_length=0.1;
-        obs_p[1].obs_velocity=0;
-        obs_p[1].obs_width=0.1;
+        // obs_p[1].obs_acc=0;
+        // obs_p[1].obs_center_x=2.54;
+        // obs_p[1].obs_center_y=2.92;
+        // obs_p[1].obs_hesding=0;
+        // obs_p[1].obs_k=0;
+        // obs_p[1].obs_length=0.1;
+        // obs_p[1].obs_velocity=0;
+        // obs_p[1].obs_width=0.1;
 
 
 
@@ -194,13 +210,25 @@ int main(int argc, char **argv)
 
     ros::Subscriber car_pose_sub = n.subscribe(car_pose_topic_name,10,car_pose_ck);
     
-    ros::Publisher ref_path_pub = n.advertise<nav_msgs::Path>("path_ref",10);
+    ros::Publisher ref_path_pub = n.advertise<nav_msgs::Path>("path_dp",10);
 
     ros::Publisher obs_pub = n.advertise<visualization_msgs::Marker>("obs_show",10);
 
+    ros::Publisher dp_obs_pub = n.advertise<std_msgs::Float64MultiArray>("dp_obs", 10); 
+
+    ros::Publisher path_k = n.advertise<std_msgs::Float64MultiArray>("path_k", 10); 
+
+    ros::Publisher ros_time = n.advertise<std_msgs::Float64MultiArray>("time", 10); 
+
     ros::Rate rate_loop(5);
 
-
+vector<double>  pathk(61);
+vector<double>  time(1);
+int k1=0,k2=0;
+bool obs_flag1=false;
+bool obs_flag2=false;
+auto time_pre=ros::Time::now();
+double dt;
     while (ros::ok())
     {
         ros::spinOnce();
@@ -222,25 +250,17 @@ int main(int argc, char **argv)
         obs_marker.color.a = 1.0;
         obs_marker.lifetime = ros::Duration();
         obs_pub.publish(obs_marker);
-        obs_marker.id = 1;
-        obs_marker.pose.position.x = 2.54;
-        obs_marker.pose.position.y = 2.92;
-        obs_marker.scale.x = 0.1;
-        obs_marker.scale.y = 0.1;
-        obs_marker.scale.z = 0.1;
-        obs_marker.color.r = 0.0f;
-        obs_marker.color.g = 1.0f;
-        obs_marker.color.b = 0.0f;
-        obs_marker.color.a = 1.0;
-        obs_marker.lifetime = ros::Duration();
-        obs_pub.publish(obs_marker);
+
+ 
+
+
         if(global_path_reference.size()>0)
         {
             //std::cout << "path size"<<global_path_reference.size()<<std::endl;
             int length_point = GetLocalRef(start_index,car_p.car_center_x,car_p.car_center_y,4,global_path_reference,referenceline); 
 
             HostCar carp(car_p,referenceline,length_point);
-            Obstacle obst(obs_p,2,referenceline,length_point);
+            Obstacle obst(obs_p,1,referenceline,length_point);
             //std::cout << "length_point"<<length_point <<std::endl;
             DynaPlaning DP(obst,carp,0,0.1,0.1,100,500,w_smooth,50,500,q_w_smooth,2);
             DP.traj=traj;
@@ -250,6 +270,15 @@ int main(int argc, char **argv)
             nav_msgs::Path path;
             path.header.frame_id = "map";
             auto time_now = ros::Time::now();
+            dt=time_now.toSec()-time_pre.toSec();
+           // cout<<"dt:"<<dt<<endl;
+            time_pre=time_now;
+            std_msgs::Float64MultiArray msg_t;
+            time[0]=ros::Time::now().toSec();
+            msg_t.data = time;
+            ros_time.publish(msg_t);
+
+
             for(int i = 0;i<DP.traj_num;i++)
             {
                 geometry_msgs::PoseStamped pose;
@@ -262,16 +291,137 @@ int main(int argc, char **argv)
                 pose.pose.orientation.y = q.getY();
                 pose.pose.orientation.z = q.getZ();
                 pose.pose.orientation.w = q.getW();
-
                 path.poses.push_back(pose);
+                
+                dp_referenceline[i].x_r=DP.traj[i].x;
+                dp_referenceline[i].y_r=DP.traj[i].y;
+                dp_referenceline[i].heading_r=DP.traj[i].heading;
+                dp_referenceline[i].k_r=DP.traj[i].k;
+                reference_get_s(dp_referenceline);
+                pathk[i]=DP.traj[i].k;
+
+                //cout<<"i:"<<i<<' '<<"x:"<<pose.pose.position.x<<' '<<"y"<<pose.pose.position.y<<' '<<"t:"<<pose.header.stamp<<endl;
             }
+             if(DP.traj[0].y>2.5)
+                obs_flag1=true;
+             if(DP.traj[0].x>3)
+                obs_flag2=true;
+             if(obs_life_time1>8)
+                obs_flag1=false;
+             if(obs_life_time2>12)
+                obs_flag2=false;
             ref_path_pub.publish(path);
+
+            std_msgs::Float64MultiArray msg_k;
+            msg_k.data = pathk;
+            path_k.publish(msg_k);
+           
+        }
+        //obs1
+       if(obs_flag1==true)
+        {
+        float obs_x= 1,
+              obs_y= 4,
+              obs_k= 0.07;
+        obs_marker.id = 1;
+        obs_marker.pose.position.x = obs_x+k1*obs_k;
+        obs_marker.pose.position.y = obs_y;
+        obs_marker.scale.x = 0.1;
+        obs_marker.scale.y = 0.1;
+        obs_marker.scale.z = 0.1;
+        obs_marker.color.r = 0.0f;
+        obs_marker.color.g = 1.0f;
+        obs_marker.color.b = 0.0f;
+        obs_marker.color.a = 1.0;
+        obs_marker.lifetime = ros::Duration(0.5);
+        obs_pub.publish(obs_marker);
+        
+        obs_d[0].obs_acc=0;
+        obs_d[0].obs_center_x=obs_x+k1*obs_k;
+        obs_d[0].obs_center_y=obs_y;
+        obs_d[0].obs_hesding=0;
+        obs_d[0].obs_k=0;
+        obs_d[0].obs_length=0.05;
+        obs_d[0].obs_velocity=0.07/dt;
+        obs_d[0].obs_width=0.05;
+        obs_life_time1=obs_life_time1+dt;
+        Obstacle obsd(obs_d,1,dp_referenceline,60);
+        obsd.CarteToFre();
+        vector<double>  obs(7);
+        obs[0]=obsd.obs_frenet->s;
+        obs[1]=obsd.obs_frenet->sd;
+        obs[2]=obsd.obs_frenet->sdd;
+        obs[3]=obsd.obs_frenet->l;
+        obs[4]=obsd.obs_frenet->ld+0.2;
+        obs[5]=obsd.obs_frenet->ldd;
+        obs[6]=1;
+        std_msgs::Float64MultiArray msg;
+        msg.data = obs;
+        dp_obs_pub.publish(msg);
+        k1++;
         }
 
-       
+        //obs2
+        if(obs_flag2==true)
+        {
+        float obs_x= 5,
+              obs_y= 4,
+              obs_k= 0.02;
+        obs_marker.id = 1;
+        obs_marker.pose.position.x = obs_x;
+        obs_marker.pose.position.y = obs_y-k2*obs_k;
+        cout<<obs_marker.pose.position.x <<"  "<<obs_marker.pose.position.y<<endl;
+        obs_marker.scale.x = 0.1;
+        obs_marker.scale.y = 0.1;
+        obs_marker.scale.z = 0.1;
+        obs_marker.color.r = 0.0f;
+        obs_marker.color.g = 1.0f;
+        obs_marker.color.b = 0.0f;
+        obs_marker.color.a = 1.0;
+        obs_marker.lifetime = ros::Duration(0.5);
+        obs_pub.publish(obs_marker);
+        
+        obs_d[0].obs_acc=0;
+        obs_d[0].obs_center_x=obs_x;
+        obs_d[0].obs_center_y=obs_y-k2*obs_k;
+        obs_d[0].obs_hesding=-M_PI_2l;
+        obs_d[0].obs_k=0;
+        obs_d[0].obs_length=0.05;
+        obs_d[0].obs_velocity=obs_k/dt;
+        obs_d[0].obs_width=0.05;
+        obs_life_time2=obs_life_time2+dt;
+        Obstacle obsd(obs_d,1,dp_referenceline,60);
+        obsd.CarteToFre();
+        vector<double>  obs(7);
+        obs[0]=obsd.obs_frenet->s;
+        obs[1]=obsd.obs_frenet->sd;
+        obs[2]=obsd.obs_frenet->sdd;
+        obs[3]=obsd.obs_frenet->l;
+        obs[4]=obsd.obs_frenet->ld;
+        obs[5]=obsd.obs_frenet->ldd;
+        obs[6]=1;
+        std_msgs::Float64MultiArray msg;
+        msg.data = obs;
+        dp_obs_pub.publish(msg);
+        k2++;
+        }
+        if(obs_flag1==false&&obs_flag2==false)
+        {
+        vector<double>  obs(7);
+        obs[0]=0;
+        obs[1]=0;
+        obs[2]=0;
+        obs[3]=0;
+        obs[4]=0;
+        obs[5]=0;
+        obs[6]=0;
+        
+        std_msgs::Float64MultiArray msg;
+        msg.data = obs;
+        dp_obs_pub.publish(msg);
 
 
-
+        }
 
         
 
@@ -279,7 +429,7 @@ int main(int argc, char **argv)
 
 
         rate_loop.sleep();
-
+ 
 
 
 

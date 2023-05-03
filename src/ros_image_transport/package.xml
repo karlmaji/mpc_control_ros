@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>dynaplaning</name>
+  <name>ros_image_transport</name>
   <version>0.0.0</version>
-  <description>The dynaplaning package</description>
+  <description>The ros_image_transport package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="lihaolin@todo.todo">lihaolin</maintainer>
+  <maintainer email="yl-01@todo.todo">yl-01</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/dynaplaning</url> -->
+  <!-- <url type="website">http://wiki.ros.org/ros_image_transport</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
@@ -49,8 +49,16 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
   <build_depend>roscpp</build_depend>
+  <build_export_depend>cv_bridge</build_export_depend>
+  <build_export_depend>image_transport</build_export_depend>
+  <build_export_depend>opencv2</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>opencv2</exec_depend>
   <exec_depend>roscpp</exec_depend>
 
 

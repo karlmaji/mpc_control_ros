@@ -92,7 +92,7 @@ class MPC_Control
         void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 3, 1> &xMax, const Eigen::Matrix<double, 3, 1> &xMin,
                                    const Eigen::Matrix<double, 2, 1> &uMax, const Eigen::Matrix<double, 2, 1> &uMin,
                                    const Eigen::Matrix<double, 3, 1> &x0,
-                                   int mpcWindow,Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound);
+                                   int mpcWindow, int controlWindow,Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound);
         /*初始化*/
         bool init(const std::string &name_node);
         //求解

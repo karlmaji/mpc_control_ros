@@ -17,16 +17,17 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     ros::NodeHandle n_private("~");
     float x_scale,y_scale;
-    std::string pose_topic;
+    std::string pose_topic,pub_topic_name;
     n_private.param<float>("x_scale",x_scale,0.2);
     n_private.param<float>("y_scale",y_scale,0.1);
     n_private.param<std::string>("pose_topic",pose_topic,"robot_1/nokov");
+    n_private.param<std::string>("pub_topic_name",pub_topic_name,"car_marker");
     ros::Time::init();
 
 
     ros::Subscriber car_odom_sub = n.subscribe(pose_topic,10,car_odom_callbk);
-    ros::Publisher car_marker_pub = n.advertise<visualization_msgs::Marker>("car_marker",10);
-
+    ros::Publisher car_marker_pub = n.advertise<visualization_msgs::Marker>(pub_topic_name,10);
+    
     boost::shared_ptr<geometry_msgs::PoseStamped const> post_1;
     post_1  = ros::topic::waitForMessage<geometry_msgs::PoseStamped>(pose_topic);
 

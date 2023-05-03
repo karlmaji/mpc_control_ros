@@ -10,17 +10,18 @@ Reference Coordinate::getproj(float x,float y)//计算投影点
   Reference proj,match_point,match_pnext;
   int index=0;
   int start_index,end_index;
-  int num=this->Point_num/10;
+  int step=2;
+  int num=this->Point_num/step;
   float min_distance=this->getdistance(x,y,index);//以第一个点距离最短开始
   float distance;
   int i;
   float ds;
-  for(i=1;i<num+1;i++) //每10个点计算一次，找出最小的一个点——粗解
+  for(i=1;i<num+1;i++) //每step个点计算一次，找出最小的一个点——粗解
   {
-    distance=this->getdistance(x,y,i*10);
+    distance=this->getdistance(x,y,i*step);
     if(distance<min_distance)
     {
-      index=i*10;
+      index=i*step;
       if(index>=this->Point_num)
       {
          index=this->Point_num-1;
@@ -31,29 +32,29 @@ Reference Coordinate::getproj(float x,float y)//计算投影点
   if(index==0)  //计算精确解范围
   {
     start_index=0;
-    end_index=10;
+    end_index=step;
   }
   else if(index==this->Point_num-1)
   {
-    start_index=index-10;
+    start_index=index-step;
     end_index=index;
   }
   else if(this->getdistance(x,y,index-1)<min_distance&&this->getdistance(x,y,index+1)>min_distance)
   {
-    start_index=index-10;
+    start_index=index-step;
     end_index=index;
   }
   else if(this->getdistance(x,y,index-1)>min_distance&&this->getdistance(x,y,index+1)<min_distance)
   {
     start_index=index;
-    end_index=index+10;
+    end_index=index+step;
     if(end_index>(this->Point_num-1))
        end_index=this->Point_num-1;
   }
   else
   {
-    start_index=index-10;
-    end_index=index+10;
+    start_index=index-step;
+    end_index=index+step;
     if(end_index>(this->Point_num-1))
        end_index=this->Point_num-1;
   }
@@ -69,7 +70,7 @@ Reference Coordinate::getproj(float x,float y)//计算投影点
   
 
   match_point=*((this->referenceline)+index);//取出匹配点
-  
+  //cout<<"index: "<<index<<endl;
 
   ds=(x-match_point.x_r)*cos(match_point.heading_r)+(y-match_point.y_r)*sin(match_point.heading_r);//计算ds
   if(ds>0)//分情况使用公式计算投影点

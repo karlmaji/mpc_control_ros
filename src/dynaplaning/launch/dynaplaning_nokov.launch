@@ -24,4 +24,15 @@
 	<param name="pose_topic" value="robot_1/nokov"/>
 	</node>
 
+	<node name="show_car_in_nokov_robot_4" pkg="mpc_control" type="show_car_in_nokov">
+	<param name="x_scale" value="0.3"/>
+	<param name="y_scale" value="0.25"/>
+	<param name="pose_topic" value="robot_4/nokov"/>
+	<remap from="car_marker" to="car_marker_2"/>
+	</node>
+
+	<node name="stplanner" pkg="stplanner" type="stplanner" output="screen">
+	
+	</node>
+	 
 </launch>

@@ -2,12 +2,12 @@ map_x_max: 10.0 #m
 map_x_min: -10.0
 map_y_max: 10.0 #m
 map_y_min: -10.0
-v_max: 0.7 #m/s
+v_max: 1.2 #m/s
 v_min: -0.4 
 sita_a_max: 1.54 #rad/s
 sita_a_min: -1.54 #rad/s
-Q_x: 2500.0
-Q_y: 2500.0
+Q_x: 3000.0
+Q_y: 3000.0
 Q_sita: 500.
 R_v: 450
 R_sita_a: 100

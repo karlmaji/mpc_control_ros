@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(mpc_control)
+project(ros_image_transport)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -7,20 +7,12 @@ project(mpc_control)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS 
-roscpp
-nav_msgs
-rosbag
+find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
+  image_transport
+  roscpp
+  sensor_msgs
 )
-
-find_package(OsqpEigen REQUIRED)
-
-#uncomment the following 4 lines to use the Eigen library
-find_package(cmake_modules REQUIRED)
-find_package(Eigen3 REQUIRED)
-
-include_directories(${EIGEN3_INCLUDE_DIR})
-add_definitions(${EIGEN_DEFINITIONS})
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -112,9 +104,9 @@ add_definitions(${EIGEN_DEFINITIONS})
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-   INCLUDE_DIRS include
-#  LIBRARIES mpc_control
-#  CATKIN_DEPENDS roscpp stage_ros
+#  INCLUDE_DIRS include
+#  LIBRARIES ros_image_transport
+#  CATKIN_DEPENDS cv_bridge image_transport opencv2 roscpp
 #  DEPENDS system_lib
 )
 
@@ -125,33 +117,14 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
-# ## Declare a C++ library
- add_library(mpc_control_lib
-   include/mpc_control/mpc_control.h 
-   include/mpc_control/mpc_control.cpp
- )
-# ## Declare a C++ library
-add_library(mpc_control_fix_lib
-include/mpc_control/mpc_control_fix.h 
-include/mpc_control/mpc_control_fix.cpp
-)
-
-# ## Declare a C++ library
-add_library(pid_control_lib
-include/pid_control/pid_control.h 
-include/pid_control/pid_control.cpp
-)
-
-# ## Declare a C++ library
-add_library(mpc_control_node_class
-include/mpc_control/mpc_control_node_class.h 
-include/mpc_control/mpc_control_node_class.cpp
-)
-
+## Declare a C++ library
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/ros_image_transport.cpp
+# )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -161,26 +134,8 @@ include/mpc_control/mpc_control_node_class.cpp
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(path_publisher src/path_publisher.cpp)
+# add_executable(${PROJECT_NAME}_node src/ros_image_transport_node.cpp)
 
-add_executable(path_publisher_nokov src/path_publisher_nokov.cpp)
-
-add_executable(read_bag src/readbag_test.cpp)
-add_executable(odom_to_path src/odom_to_path.cpp)
-
-add_executable(pid_control_node src/pid_control_node.cpp)
-add_executable(mpc_control_node src/mpc_control_node.cpp)
-add_executable(mpc_control_node_fix src/mpc_control_node_fix.cpp)
-
-add_executable(mpc_control_node_nokov src/mpc_control_node_nokov.cpp)
-add_executable(bag_to_path src/bag_to_path.cpp)
-
-add_executable(mpc_test src/mpc_test.cpp)
-
-
-add_executable(mpc include/mpc_control/mpc_control_node_class.cpp)
-
-add_executable(show_car_in_stage src/show_car_in_stage.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -192,28 +147,14 @@ add_executable(show_car_in_stage src/show_car_in_stage.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(path_publisher  ${catkin_LIBRARIES})
-target_link_libraries(read_bag  ${catkin_LIBRARIES})
-target_link_libraries(odom_to_path  ${catkin_LIBRARIES})
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
+add_executable(image_pub src/image_pub.cpp)
+target_link_libraries(image_pub  ${catkin_LIBRARIES})
 
-target_link_libraries(pid_control_node  pid_control_lib  ${catkin_LIBRARIES})
-
-target_link_libraries(mpc_control_node  mpc_control_lib  ${catkin_LIBRARIES})
-target_link_libraries(mpc_control_node_fix  mpc_control_fix_lib  ${catkin_LIBRARIES})
-target_link_libraries(mpc_control_lib  OsqpEigen::OsqpEigen  ${catkin_LIBRARIES})
-target_link_libraries(mpc_control_fix_lib  OsqpEigen::OsqpEigen  ${catkin_LIBRARIES})
-
-target_link_libraries(mpc_control_node_nokov  mpc_control_fix_lib  ${catkin_LIBRARIES})
-target_link_libraries(bag_to_path  ${catkin_LIBRARIES})
-target_link_libraries(mpc_test  mpc_control_lib  ${catkin_LIBRARIES})
-target_link_libraries(path_publisher_nokov  ${catkin_LIBRARIES})
-
-target_link_libraries(mpc_control_node_class mpc_control_fix_lib ${catkin_LIBRARIES})
-
-
-target_link_libraries(mpc mpc_control_node_class ${catkin_LIBRARIES})
-target_link_libraries(show_car_in_stage  ${catkin_LIBRARIES})
-
+add_executable(image_pub_2 src/image_pub_2.cpp)
+target_link_libraries(image_pub_2  ${catkin_LIBRARIES})
 #############
 ## Install ##
 #############
@@ -250,17 +191,18 @@ target_link_libraries(show_car_in_stage  ${catkin_LIBRARIES})
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-install(DIRECTORY
-  launch  stage  maps cfg 
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
 
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_mpc_control.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_ros_image_transport.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
