@@ -1,0 +1,2 @@
+uint8 horizontal_angle
+uint8 vertical_angle
