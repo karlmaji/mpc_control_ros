@@ -21,7 +21,7 @@ private:
     double vlinear,vangular;
     //手柄键值
     int axis_ang,axis_lin; 
-    int dir,flag_mec;
+    int dir=0,flag_mec;
 
 };
  
@@ -33,8 +33,8 @@ wheeltec_joy::wheeltec_joy()
    ros::NodeHandle private_nh("~"); //创建节点句柄
    private_nh.param<int>("axis_linear",axis_lin,1); //默认axes[1]接收速度
    private_nh.param<int>("axis_angular",axis_ang,0);//默认axes[0]接收角度
-   private_nh.param<double>("vlinear",vlinear,0.3);//默认线速度0.3 m/s
-   private_nh.param<double>("vangular",vangular,1);//默认角速度1 单位rad/s
+   private_nh.param<double>("vlinear",vlinear,0.0);//默认线速度0.3 m/s
+   private_nh.param<double>("vangular",vangular,2);//默认角速度1 单位rad/s
 
    pub = n.advertise<geometry_msgs::Twist>("cmd_vel",10);//将速度发给机器人底盘节点
   //  pub2 = n.advertise<geometry_msgs::Twist>("/carla/ego_vehicle/twist",1);//将速度发给机器人底盘节点

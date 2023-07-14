@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  ptz_serial
 )
 
 ## System dependencies are found with CMake's conventions
@@ -124,6 +125,12 @@ add_executable( joycontrol src/control.cpp)
 add_dependencies( joycontrol  ${${PROJECT_NAME}_EXPORTED_TARGETS}${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(joycontrol ${catkin_LIBRARIES})
+
+add_executable( joy_xbox_control src/control_xbox.cpp)
+
+add_dependencies( joy_xbox_control  ${${PROJECT_NAME}_EXPORTED_TARGETS}${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(joy_xbox_control ${catkin_LIBRARIES})
 
 add_executable(joy_node src/joy_node.cpp)
 target_link_libraries(joy_node ${catkin_LIBRARIES})
